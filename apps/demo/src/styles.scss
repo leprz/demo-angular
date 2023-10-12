@@ -1,1 +1,136 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'icons';
+
+@font-face {
+  font-family: 'ar_one_sansregular';
+  src: url('assets/aronesans-variablefont_arrrwght-webfont.woff2') format('woff2'),
+  url('assets/aronesans-variablefont_arrrwght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+:root {
+  --color-neutral: #989898;
+  --color-neutral-2: #727272;
+  --color-surface: #0e0e18;
+  --color-primary: #2f2f2f;
+  --color-primary-1: #252525;
+  --color-secondary: #3f3f3f;
+  --color-secondary-1: #025134;
+  --color-error: #9b1313;
+}
+
+* {
+  font-family: 'ar_one_sansregular', sans-serif;
+
+}
+body {
+  background-color: var(--color-surface);
+  margin: 0;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+  color: var(--color-neutral);
+}
+
+main {
+  padding: 1rem .5rem;
+}
+
+a {
+  color: var(--color-neutral);
+  text-decoration: none;
+}
+
+input {
+  padding: .5rem;
+  font-size: 1rem;
+}
+
+input[type=text],
+input[type=text]:focus-visible {
+  outline: none;
+  background-color: var(--color-secondary);
+  color: var(--color-neutral);
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+button, input[type=submit] {
+  padding: .5rem;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-neutral-1);
+  cursor: pointer;
+  &:disabled {
+    opacity: .5;
+  }
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-neutral);
+  background-color: CanvasText;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+input[type="checkbox"]:disabled {
+  --color-neutral: var(--color-neutral-2);
+  color: var(--color-neutral-2);
+  opacity: .5;
+}
+
+.btn-icon {
+  font-size: 1em;
+  border-radius: 2em;
+  height: 2em;
+  width: 2em;
+  max-width: 2em;
+  line-height: 0.25em;
+  [class^="icon-"], [class*=" icon-"] {
+    font-size: .9em;
+  }
+}
+
+
+[class^='icon'].warning,
+[class*=" icon-"].warning {
+  color: var(--color-error);
+  padding: 0 .5rem;
+  display: inline-block;
+  cursor: pointer;
+}

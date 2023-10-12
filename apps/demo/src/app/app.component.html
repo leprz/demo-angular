@@ -1,1 +1,13 @@
-<demo-nx-welcome></demo-nx-welcome> <router-outlet></router-outlet>
+<section class="app">
+  <header>
+    <span class="app__name"><a [routerLink]="'/todo'">TODO</a></span>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <footer>
+    <a href="https://github.com/leprz/demo-angular" target="_blank" title="github" class="icon-github-alt"></a>
+    <a href="https://houseofangular.io" target="_blank" title="website" class="icon-globe"></a>
+    <a href="mailto:webinars@houseofangular.io?subject=Question how to scale angular applications and teams" target="_blank" title="main" class="icon-envelope"></a>
+  </footer>
+</section>

@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+
+.ui-loading {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.ui-loading div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-neutral-2);
+  opacity: .3;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.ui-loading div:nth-child(1) {
+  left: 8px;
+  animation: ui-loading1 0.6s infinite;
+}
+
+.ui-loading div:nth-child(2) {
+  left: 8px;
+  animation: ui-loading2 0.6s infinite;
+}
+
+.ui-loading div:nth-child(3) {
+  left: 32px;
+  animation: ui-loading2 0.6s infinite;
+}
+
+.ui-loading div:nth-child(4) {
+  left: 56px;
+  animation: ui-loading3 0.6s infinite;
+}
+
+@keyframes ui-loading1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes ui-loading3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes ui-loading2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
