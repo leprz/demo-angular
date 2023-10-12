@@ -1,0 +1,25 @@
+.form-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.form-control__errors {
+  width: 100%;
+  color: var(--color-error);
+  padding-left: .5rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.form-control__input {
+  flex-grow: 10;
+}
+
+.form-control__submit {
+  flex-grow: 1;
+  background-color: var(--color-secondary-1);
+}

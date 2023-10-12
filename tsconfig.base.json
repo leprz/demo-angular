@@ -39,6 +39,9 @@
       ],
       "@demo/features/feature-todo-details": [
         "features/feature-todo-details/src/index.ts"
+      ],
+      "@demo/features/feature-todo-create": [
+        "features/feature-todo-create/src/index.ts"
       ]
     }
   },

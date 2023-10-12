@@ -19,6 +19,7 @@ export class FeatureTodoList {
     ofType(
       featureTodoCommonActions.todoDeletedWithSuccess,
       featureTodoCommonActions.todoResolutionUpdatedWithSuccess,
+      featureTodoCommonActions.todoCreatedWithSuccess
     ),
     tap(() => {
       this.store.dispatch(todoListActions.silentReloadRequested())

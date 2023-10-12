@@ -1,4 +1,4 @@
-import {createActionGroup, props} from "@ngrx/store";
+import {createActionGroup, emptyProps, props} from "@ngrx/store";
 import {ActionPayload} from "@demo/utils/utils-data-service";
 import {
   DeleteOneTodoContract,
@@ -12,5 +12,6 @@ export const featureTodoCommonActions = createActionGroup({
     'todo deleted with success': props<ActionPayload<typeof DeleteOneTodoContract.pathParams>>(),
     'todo list loaded with success': props<ActionPayload<typeof ReadManyTodosContract.result>>(),
     'todo resolution updated with success': props<ActionPayload<typeof UpdateOneTodoResolutionContract.pathParams>>(),
+    'todo created with success': emptyProps(),
   }
 });
