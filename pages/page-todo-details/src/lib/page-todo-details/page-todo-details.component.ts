@@ -26,7 +26,7 @@ export class PageTodoDetailsComponent {
 
   readonly deleteResult$ = this.featureTodoDelete.deleteResult$(this.id);
 
-  readonly onDeleteSuccess$ = this.featureTodoDelete.deleteSuccess$({
+  readonly onDeleteSuccess$ = this.featureTodoDelete.deleteOneSuccess$({
     id: this.id
   });
 
@@ -44,13 +44,19 @@ export class PageTodoDetailsComponent {
   ) {
     featureTodoDetails.loadTodo(this.id);
 
+    featureTodoDetails.events$(
+      this.id
+    ).pipe(
+      takeUntilDestroyed()
+    ).subscribe(() => {});
+
     this.onDeleteSuccess$.pipe(
       takeUntilDestroyed()
     ).subscribe(() => {
       return this.router.navigate(['/todo'], {
         replaceUrl: true
       });
-    })
+    });
   }
 
   onResolutionButtonClick(isComplete: boolean): void {

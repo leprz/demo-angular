@@ -5,7 +5,8 @@ import {
   createReducer,
   createSelector,
   on,
-  props
+  props,
+  Store
 } from "@ngrx/store";
 import {errorState, HttpRequestState, loadedState, loadingState} from "ngx-http-request-state";
 import {ReadOneTodoContract, TodoDataService} from "@demo/contracts/contract-todo";
@@ -15,7 +16,6 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Injectable} from "@angular/core";
 import {fetch} from "@nx/angular";
 import {map} from "rxjs";
-import {featureTodoCommonActions} from "@demo/features/feature-todo-common";
 
 const TODO_DETAILS_FEATURE_KEY = 'todoDetails';
 
@@ -25,6 +25,7 @@ export const todoDetailsActions = createActionGroup({
     'opened': props<ActionPayload<typeof ReadOneTodoContract.pathParams>>(),
     'loaded success': props<ActionPayload<typeof ReadOneTodoContract.result>>(),
     'loaded error': props<ActionPayload<HttpErrorResponse>>(),
+    'silent reload requested': props<ActionPayload<typeof ReadOneTodoContract.pathParams>>(),
   }
 })
 
@@ -68,7 +69,7 @@ export class TodoDetailsSelectors {
 @Injectable()
 export class TodoDetailsEffects {
   readonly loadTodoDetails$ = createEffect(() => this.actions$.pipe(
-    ofType(todoDetailsActions.opened, featureTodoCommonActions.todoResolutionUpdatedWithSuccess),
+    ofType(todoDetailsActions.opened, todoDetailsActions.silentReloadRequested),
     fetch({
       run: ({payload}) => this.todoDataService.readOneById({
         id: payload.id
@@ -79,6 +80,9 @@ export class TodoDetailsEffects {
     })
   ));
 
-  constructor(private readonly actions$: Actions, private readonly todoDataService: TodoDataService) {
+  constructor(
+    private readonly actions$: Actions,
+    private readonly store: Store<TodoDetailsState>,
+    private readonly todoDataService: TodoDataService) {
   }
 }

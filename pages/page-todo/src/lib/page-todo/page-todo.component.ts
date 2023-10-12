@@ -9,4 +9,5 @@ import {TodoListComponent} from "@demo/features/feature-todo-list";
   styleUrls: ['./page-todo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageTodoComponent {}
+export class PageTodoComponent {
+}

@@ -31,7 +31,7 @@ export const todoListReducer = createReducer(
       ...state,
       todoList: errorState(payload)
     }
-  })
+  }),
 );
 
 export const TODO_LIST_FEATURE_KEY = 'todoList';

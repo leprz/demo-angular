@@ -19,11 +19,14 @@ export class FeatureTodoDeleteImpl implements FeatureTodoDelete {
     );
   }
 
-  deleteSuccess$ = (payload: FeatureTodoDeletePayload) =>
-    this.actions$.pipe(
-      ofType(featureTodoCommonActions.todoDeletedWithSuccess),
-      filter((action) => action.payload.id === payload.id),
-      map((action) => action.payload)
+  deleteSuccess$ = this.actions$.pipe(
+    ofType(featureTodoCommonActions.todoDeletedWithSuccess),
+    map((action) => action.payload)
+  );
+
+  deleteOneSuccess$ = (payload: FeatureTodoDeletePayload) =>
+    this.deleteSuccess$.pipe(
+      filter((result) => result.id === payload.id)
     );
 
   constructor(

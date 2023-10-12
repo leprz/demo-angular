@@ -7,6 +7,7 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'todo',
+        pathMatch: 'full',
         loadChildren: () => import('@demo/pages/page-todo').then(m => m.pagesPageTodoRoutes),
       },
       {

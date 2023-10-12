@@ -9,5 +9,6 @@ export const todoListActions = createActionGroup({
     'todo list opened': emptyProps(),
     'todo list loaded error': props<ActionPayload<HttpErrorResponse>>(),
     'todo list loaded with success': props<ActionPayload<typeof ReadManyTodosContract.result>>(),
+    'silent reload requested': emptyProps(),
   }
 })

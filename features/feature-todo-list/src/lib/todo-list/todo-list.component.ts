@@ -9,6 +9,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 import {HttpRequestState} from 'ngx-http-request-state';
 import {TodoListDeleteComponent} from "./todo-list-delete.component";
 import {TodoListResolutionComponent} from "./todo-list-resolution.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'feature-todo-list',
@@ -62,5 +63,9 @@ export class TodoListComponent {
     private readonly featureTodoList: FeatureTodoList,
   ) {
       featureTodoList.loadTodoList();
+
+      featureTodoList.events$.pipe(
+        takeUntilDestroyed(),
+      ).subscribe(() => {});
   }
 }
