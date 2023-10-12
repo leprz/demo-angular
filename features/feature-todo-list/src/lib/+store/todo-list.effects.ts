@@ -12,6 +12,7 @@ export class TodoListEffects {
       ofType(
         todoListActions.todoListOpened,
         featureTodoCommonActions.todoDeletedWithSuccess,
+        featureTodoCommonActions.todoResolutionUpdatedWithSuccess,
       ),
       fetch({
         run: () => {

@@ -8,6 +8,7 @@ import {filterNill, HasErrorPipe, IsLoadingPipe,} from '@demo/utils/utils-data-s
 import {animate, style, transition, trigger} from '@angular/animations';
 import {HttpRequestState} from 'ngx-http-request-state';
 import {TodoListDeleteComponent} from "./todo-list-delete.component";
+import {TodoListResolutionComponent} from "./todo-list-resolution.component";
 
 @Component({
   selector: 'feature-todo-list',
@@ -20,6 +21,7 @@ import {TodoListDeleteComponent} from "./todo-list-delete.component";
     IsLoadingPipe,
     HasErrorPipe,
     TodoListDeleteComponent,
+    TodoListResolutionComponent,
   ],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],

@@ -11,6 +11,10 @@
             [fade]="todoItem.isComplete"
             @hide
           >
+            <feature-todo-list-resolution
+              todo-item-prefix
+              [params]="todoItem">
+            </feature-todo-list-resolution>
             <feature-todo-list-delete
               todo-item-action
             [params]="todoItem">

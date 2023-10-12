@@ -33,6 +33,9 @@
       ],
       "@demo/features/feature-todo-common": [
         "features/feature-todo-common/src/index.ts"
+      ],
+      "@demo/features/feature-todo-resolution": [
+        "features/feature-todo-resolution/src/index.ts"
       ]
     }
   },
