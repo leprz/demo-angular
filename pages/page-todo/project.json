@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "pages/page-todo/src",
   "prefix": "page",
-  "tags": [],
+  "tags": ["type:page"],
   "projectType": "library",
   "targets": {
     "test": {

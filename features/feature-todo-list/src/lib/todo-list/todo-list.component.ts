@@ -66,6 +66,6 @@ export class TodoListComponent {
 
       featureTodoList.events$.pipe(
         takeUntilDestroyed(),
-      ).subscribe(() => {});
+      ).subscribe();
   }
 }

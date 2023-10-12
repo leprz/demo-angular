@@ -15,6 +15,46 @@
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
+                "sourceTag": "type:contract",
+                "onlyDependOnLibsWithTags": [
+                  "type:contract"
+                ]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": [
+                  "type:util", "type:ui"]
+              },
+              {
+                "sourceTag": "type:page",
+                "onlyDependOnLibsWithTags": ["type:ui", "type:util", "type:feature", "type:feature-common", "type:contract"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": ["type:ui", "type:util"]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": ["type:util"]
+              },
+              {
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:util",
+                  "type:contract",
+                  "type:feature-common"
+                ]
+              },
+              {
+                "sourceTag": "type:feature-common",
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:contract",
+                  "type:feature-common"
+                ]
               }
             ]
           }

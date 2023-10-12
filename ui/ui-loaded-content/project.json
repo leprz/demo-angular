@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "ui/ui-loaded-content/src",
   "prefix": "ui",
-  "tags": [],
+  "tags": ["type:ui"],
   "projectType": "library",
   "targets": {
     "test": {

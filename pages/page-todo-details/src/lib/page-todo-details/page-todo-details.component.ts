@@ -48,7 +48,7 @@ export class PageTodoDetailsComponent {
       this.id
     ).pipe(
       takeUntilDestroyed()
-    ).subscribe(() => {});
+    ).subscribe();
 
     this.onDeleteSuccess$.pipe(
       takeUntilDestroyed()

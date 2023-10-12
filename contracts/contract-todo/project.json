@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "contracts/contract-todo/src",
   "prefix": "contract",
-  "tags": [],
+  "tags": ["type:contract"],
   "projectType": "library",
   "targets": {
     "test": {
