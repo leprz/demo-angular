@@ -36,6 +36,9 @@
       ],
       "@demo/features/feature-todo-resolution": [
         "features/feature-todo-resolution/src/index.ts"
+      ],
+      "@demo/features/feature-todo-details": [
+        "features/feature-todo-details/src/index.ts"
       ]
     }
   },
