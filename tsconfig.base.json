@@ -27,6 +27,12 @@
       "@demo/ui/ui-todo-item": ["ui/ui-todo-item/src/index.ts"],
       "@demo/utils/utils-data-service": [
         "utils/utils-data-service/src/index.ts"
+      ],
+      "@demo/features/feature-todo-delete": [
+        "features/feature-todo-delete/src/index.ts"
+      ],
+      "@demo/features/feature-todo-common": [
+        "features/feature-todo-common/src/index.ts"
       ]
     }
   },

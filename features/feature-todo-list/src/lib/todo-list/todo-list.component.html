@@ -11,6 +11,10 @@
             [fade]="todoItem.isComplete"
             @hide
           >
+            <feature-todo-list-delete
+              todo-item-action
+            [params]="todoItem">
+            </feature-todo-list-delete>
           </ui-todo-item>
         </ng-container>
       </ng-container>
