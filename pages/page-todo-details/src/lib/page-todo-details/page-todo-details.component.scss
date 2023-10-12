@@ -1,0 +1,41 @@
+.todo-details {
+display: flex;
+flex-direction: column;
+}
+
+.todo-details__complete {
+  .todo-details__status,
+  .todo-details__body {
+    background-color: var(--color-secondary-1);
+  }
+}
+
+.todo-details__status,
+.todo-details__body {
+  background-color: var(--color-primary-1);
+}
+
+.todo-details__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-details__actions {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  padding: .5rem 0;
+}
+
+.todo-details__status {
+  padding: 1rem;
+  display: inline-block;
+  border-radius: .5rem .5rem 0 0;
+  align-self: flex-end;
+}
+
+.todo-details__body {
+  padding: 1rem;
+  border-radius: 0 .5rem .5rem .5rem;
+}

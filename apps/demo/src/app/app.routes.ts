@@ -10,6 +10,10 @@ export const appRoutes: Route[] = [
         loadChildren: () => import('@demo/pages/page-todo').then(m => m.pagesPageTodoRoutes),
       },
       {
+        path: 'todo/:id',
+        loadChildren: () => import('@demo/pages/page-todo-details').then(m => m.pagesPageTodoDetailsRoutes),
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'todo',
