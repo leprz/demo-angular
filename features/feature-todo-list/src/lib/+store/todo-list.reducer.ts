@@ -14,19 +14,19 @@ const initialState: TodoListState = {
 }
 export const todoListReducer = createReducer(
   initialState,
-  on(todoListActions.todoListOpened, (state): TodoListState => {
+  on(todoListActions.opened, (state): TodoListState => {
     return {
       ...state,
       todoList: loadingState()
     }
   }),
-  on(todoListActions.todoListLoadedWithSuccess, (state, {payload}): TodoListState => {
+  on(todoListActions.loadedWithSuccess, (state, {payload}): TodoListState => {
     return {
       ...state,
       todoList: loadedState(payload)
     }
   }),
-  on(todoListActions.todoListLoadedError, (state, {payload}): TodoListState => {
+  on(todoListActions.loadedWithError, (state, {payload}): TodoListState => {
     return {
       ...state,
       todoList: errorState(payload)

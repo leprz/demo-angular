@@ -2,7 +2,7 @@ import {Store} from '@ngrx/store';
 import {todoDeleteActions, TodoDeleteSelectors, TodoDeleteState,} from './+store/todo-delete.store';
 import {Injectable} from '@angular/core';
 import {
-  featureTodoCommonActions,
+  todoCommonActions,
   FeatureTodoDelete,
   FeatureTodoDeletePayload,
 } from '@demo/features/feature-todo-common';
@@ -15,12 +15,12 @@ export class FeatureTodoDeleteImpl implements FeatureTodoDelete {
 
   delete(payload: FeatureTodoDeletePayload): void {
     this.store.dispatch(
-      todoDeleteActions.todoDeleteTriggered({ payload  })
+      todoDeleteActions.triggered({ payload  })
     );
   }
 
   deleteSuccess$ = this.actions$.pipe(
-    ofType(featureTodoCommonActions.todoDeletedWithSuccess),
+    ofType(todoCommonActions.todoDeletedWithSuccess),
     map((action) => action.payload)
   );
 
@@ -34,4 +34,3 @@ export class FeatureTodoDeleteImpl implements FeatureTodoDelete {
     private readonly actions$: Actions
   ) {}
 }
-//test

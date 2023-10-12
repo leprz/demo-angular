@@ -9,17 +9,17 @@ import {Injectable} from "@angular/core";
 export class TodoListEffects {
   loadTodoList$ = createEffect(() => this.actions$.pipe(
       ofType(
-        todoListActions.todoListOpened,
+        todoListActions.opened,
         todoListActions.silentReloadRequested,
       ),
       fetch({
         run: () => {
           return this.todoListDataService.readManyTodos().pipe(
-            map(result => todoListActions.todoListLoadedWithSuccess({payload: result}))
+            map(result => todoListActions.loadedWithSuccess({payload: result}))
           );
         },
         onError: (action, error) => {
-          return todoListActions.todoListLoadedError({payload: error});
+          return todoListActions.loadedWithError({payload: error});
         }
       })
     )

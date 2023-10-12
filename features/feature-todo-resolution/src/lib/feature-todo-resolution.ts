@@ -13,7 +13,7 @@ export class FeatureTodoResolutionImpl implements FeatureTodoResolution {
     this.store.select(TodoResolutionSelectors.resolution(payload.id));
 
   updateResolution(payload: FeatureTodoResolutionUpdatePayload): void {
-    this.store.dispatch(todoResolutionActions.todoResolutionTriggered({
+    this.store.dispatch(todoResolutionActions.triggered({
       payload: {
         isComplete: payload.isComplete,
         id: payload.id,

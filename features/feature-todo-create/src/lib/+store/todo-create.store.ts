@@ -7,10 +7,10 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {map} from 'rxjs';
 import {fetch} from '@ngrx/router-store/data-persistence';
-import {featureTodoCommonActions} from '@demo/features/feature-todo-common';
+import {todoCommonActions} from '@demo/features/feature-todo-common';
 
 export const todoCreateActions = createActionGroup({
-  source: 'Todo Form',
+  source: 'todo form',
   events: {
     'create todo submitted':
       props<ActionPayload<typeof CreateOneTodoContract.bodyParams>>(),
@@ -34,7 +34,7 @@ export const todoCreateReducer = createReducer(
     ...state,
     createTodoForm: loadingState(),
   })),
-  on(featureTodoCommonActions.todoCreatedWithSuccess, (state) => ({
+  on(todoCommonActions.todoCreatedWithSuccess, (state) => ({
     ...state,
     createTodoForm: loadedState(undefined),
   })),
@@ -64,7 +64,7 @@ export class TodoCreateEffects {
         run: ({ payload }) =>
           this.todoDataService
             .createOne(payload)
-            .pipe(map(() => featureTodoCommonActions.todoCreatedWithSuccess())),
+            .pipe(map(() => todoCommonActions.todoCreatedWithSuccess())),
         onError: (action, error) =>
           todoCreateActions.createTodoFormError({ payload: error }),
       })

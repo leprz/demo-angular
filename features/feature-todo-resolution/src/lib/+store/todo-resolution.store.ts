@@ -8,7 +8,7 @@ import {fetch} from "@ngrx/router-store/data-persistence";
 import {map} from "rxjs";
 import {Injectable} from "@angular/core";
 import {
-  featureTodoCommonActions,
+  todoCommonActions,
   FeatureTodoResolutionPayload,
   FeatureTodoResolutionResult,
   FeatureTodoResolutionUpdatePayload
@@ -17,13 +17,13 @@ import {
 export const todoResolutionActions = createActionGroup({
   source: 'todo resolution',
   events: {
-    'todo resolution triggered': props<
+    'triggered': props<
       ActionPayload<
         FeatureTodoResolutionPayload
         & FeatureTodoResolutionUpdatePayload
       >
     >(),
-    'todo resolution loaded with error': props<ActionPayload<{
+    'loaded with error': props<ActionPayload<{
       params: FeatureTodoResolutionPayload,
       error: HttpErrorResponse
     }>>(),
@@ -42,18 +42,18 @@ const initialState: TodoResolutionState = {
 
 export const todoResolutionReducer = createReducer(
   initialState,
-  on(featureTodoCommonActions.todoListLoadedWithSuccess, (state) => ({
+  on(todoCommonActions.todoListLoadedWithSuccess, (state) => ({
     ...state,
     resolutionMap: {}
   })),
-  on(todoResolutionActions.todoResolutionTriggered, (state, {payload}) => ({
+  on(todoResolutionActions.triggered, (state, {payload}) => ({
     ...state,
     resolutionMap: {
       ...state.resolutionMap,
       [payload.id]: loadingState(),
     }
   })),
-  on(featureTodoCommonActions.todoResolutionUpdatedWithSuccess, (state, {payload}) => ({
+  on(todoCommonActions.todoResolutionUpdatedWithSuccess, (state, {payload}) => ({
         ...state,
         resolutionMap: {
           ...state.resolutionMap,
@@ -62,7 +62,7 @@ export const todoResolutionReducer = createReducer(
       }
     ),
   ),
-  on(todoResolutionActions.todoResolutionLoadedWithError, (state, {payload}) => ({
+  on(todoResolutionActions.loadedWithError, (state, {payload}) => ({
       ...state,
       resolutionMap: {
         ...state.resolutionMap,
@@ -86,7 +86,7 @@ export class TodoResolutionSelectors {
 @Injectable()
 export class TodoResolutionEffects {
   readonly updateResolution$ = createEffect(() => this.actions$.pipe(
-    ofType(todoResolutionActions.todoResolutionTriggered),
+    ofType(todoResolutionActions.triggered),
     fetch({
       run: ({payload}) => {
         return this.todoDataService.updateResolution(
@@ -97,12 +97,12 @@ export class TodoResolutionEffects {
             isComplete: payload.isComplete
           }
         ).pipe(
-          map(() => featureTodoCommonActions.todoResolutionUpdatedWithSuccess({
+          map(() => todoCommonActions.todoResolutionUpdatedWithSuccess({
             payload
           }))
         )
       },
-      onError: (action, error) => todoResolutionActions.todoResolutionLoadedWithError(
+      onError: (action, error) => todoResolutionActions.loadedWithError(
         {
           payload: {
             params: action.payload,

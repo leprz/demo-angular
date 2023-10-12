@@ -8,7 +8,7 @@ import {fetch} from "@ngrx/router-store/data-persistence";
 import {map} from "rxjs";
 import {Injectable} from "@angular/core";
 import {
-  featureTodoCommonActions,
+  todoCommonActions,
   FeatureTodoDeletePayload,
   FeatureTodoDeleteResult
 } from "@demo/features/feature-todo-common";
@@ -16,8 +16,8 @@ import {
 export const todoDeleteActions = createActionGroup({
   source: 'todo delete',
   events: {
-    'todo delete triggered': props<ActionPayload<FeatureTodoDeletePayload>>(),
-    'todo delete loaded with error': props<ActionPayload<{
+    'triggered': props<ActionPayload<FeatureTodoDeletePayload>>(),
+    'loaded with error': props<ActionPayload<{
       params: FeatureTodoDeletePayload,
       error: HttpErrorResponse
     }>>(),
@@ -36,18 +36,18 @@ const initialState: TodoDeleteState = {
 
 export const todoDeleteReducer = createReducer(
   initialState,
-  on(featureTodoCommonActions.todoListLoadedWithSuccess, (state) => ({
+  on(todoCommonActions.todoListLoadedWithSuccess, (state) => ({
     ...state,
     deleteMap: {}
   })),
-  on(todoDeleteActions.todoDeleteTriggered, (state, {payload}) => ({
+  on(todoDeleteActions.triggered, (state, {payload}) => ({
     ...state,
     deleteMap: {
       ...state.deleteMap,
       [payload.id]: loadingState(),
     }
   })),
-  on(featureTodoCommonActions.todoDeletedWithSuccess, (state, {payload}) => ({
+  on(todoCommonActions.todoDeletedWithSuccess, (state, {payload}) => ({
         ...state,
         deleteMap: {
           ...state.deleteMap,
@@ -56,7 +56,7 @@ export const todoDeleteReducer = createReducer(
       }
     ),
   ),
-  on(todoDeleteActions.todoDeleteLoadedWithError, (state, {payload}) => ({
+  on(todoDeleteActions.loadedWithError, (state, {payload}) => ({
       ...state,
       deleteMap: {
         ...state.deleteMap,
@@ -80,14 +80,14 @@ export class TodoDeleteSelectors {
 @Injectable()
 export class TodoDeleteEffects {
   readonly deleteTodo$ = createEffect(() => this.actions$.pipe(
-    ofType(todoDeleteActions.todoDeleteTriggered),
+    ofType(todoDeleteActions.triggered),
     fetch({
       run: (action) => {
         return this.todoDataService.deleteOneTodo(action.payload).pipe(
-          map(() => featureTodoCommonActions.todoDeletedWithSuccess({payload: action.payload})
+          map(() => todoCommonActions.todoDeletedWithSuccess({payload: action.payload})
           ))
       },
-      onError: (action, error) => todoDeleteActions.todoDeleteLoadedWithError(
+      onError: (action, error) => todoDeleteActions.loadedWithError(
         {
           payload: {
             params: action.payload,

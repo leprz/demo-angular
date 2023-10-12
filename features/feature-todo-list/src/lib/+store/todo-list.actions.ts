@@ -6,9 +6,9 @@ import {ReadManyTodosContract} from "@demo/contracts/contract-todo";
 export const todoListActions = createActionGroup({
   source: 'todo list',
   events: {
-    'todo list opened': emptyProps(),
-    'todo list loaded error': props<ActionPayload<HttpErrorResponse>>(),
-    'todo list loaded with success': props<ActionPayload<typeof ReadManyTodosContract.result>>(),
+    'opened': emptyProps(),
+    'loaded with error': props<ActionPayload<HttpErrorResponse>>(),
+    'loaded with success': props<ActionPayload<typeof ReadManyTodosContract.result>>(),
     'silent reload requested': emptyProps(),
   }
 })
