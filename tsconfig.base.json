@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@demo/contracts/contract-todo": ["contracts/contract-todo/src/index.ts"],
+      "@demo/pages/page-todo": ["pages/page-todo/src/index.ts"],
       "@demo/ui/ui-form-errors": ["ui/ui-form-errors/src/index.ts"],
       "@demo/ui/ui-loaded-content": ["ui/ui-loaded-content/src/index.ts"],
       "@demo/ui/ui-loading": ["ui/ui-loading/src/index.ts"],
