@@ -1,0 +1,12 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.todo-list__item-action {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}

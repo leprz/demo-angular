@@ -16,12 +16,18 @@
     "baseUrl": ".",
     "paths": {
       "@demo/contracts/contract-todo": ["contracts/contract-todo/src/index.ts"],
+      "@demo/features/feature-todo-list": [
+        "features/feature-todo-list/src/index.ts"
+      ],
       "@demo/pages/page-todo": ["pages/page-todo/src/index.ts"],
       "@demo/pages/page-todo-details": ["pages/page-todo-details/src/index.ts"],
       "@demo/ui/ui-form-errors": ["ui/ui-form-errors/src/index.ts"],
       "@demo/ui/ui-loaded-content": ["ui/ui-loaded-content/src/index.ts"],
       "@demo/ui/ui-loading": ["ui/ui-loading/src/index.ts"],
-      "@demo/ui/ui-todo-item": ["ui/ui-todo-item/src/index.ts"]
+      "@demo/ui/ui-todo-item": ["ui/ui-todo-item/src/index.ts"],
+      "@demo/utils/utils-data-service": [
+        "utils/utils-data-service/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

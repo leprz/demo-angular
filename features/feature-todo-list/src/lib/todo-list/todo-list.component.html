@@ -1,0 +1,22 @@
+<ui-loaded-content
+  *ngIf="uiTodoList$ | async as todoList"
+  [content]="todoList"
+>
+  <div class="todo-list">
+    <ng-container *ngIf="todoList.value && todoList.value.length > 0 else noResults">
+        <ng-container *ngFor="let todoItem of todoList.value; trackBy:trackByFn">
+          <ui-todo-item
+            class="todo-list__item"
+            [todo]="todoItem"
+            [fade]="todoItem.isComplete"
+            @hide
+          >
+          </ui-todo-item>
+        </ng-container>
+      </ng-container>
+    <ng-template #noResults>
+      <h2>No results found</h2>
+    </ng-template>
+  </div>
+</ui-loaded-content>
+
