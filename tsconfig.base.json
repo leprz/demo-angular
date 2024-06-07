@@ -16,8 +16,23 @@
     "baseUrl": ".",
     "paths": {
       "@demo/contracts/contract-todo": ["contracts/contract-todo/src/index.ts"],
+      "@demo/features/feature-todo-common": [
+        "features/feature-todo-common/src/index.ts"
+      ],
+      "@demo/features/feature-todo-create": [
+        "features/feature-todo-create/src/index.ts"
+      ],
+      "@demo/features/feature-todo-delete": [
+        "features/feature-todo-delete/src/index.ts"
+      ],
+      "@demo/features/feature-todo-details": [
+        "features/feature-todo-details/src/index.ts"
+      ],
       "@demo/features/feature-todo-list": [
         "features/feature-todo-list/src/index.ts"
+      ],
+      "@demo/features/feature-todo-resolution": [
+        "features/feature-todo-resolution/src/index.ts"
       ],
       "@demo/pages/page-todo": ["pages/page-todo/src/index.ts"],
       "@demo/pages/page-todo-details": ["pages/page-todo-details/src/index.ts"],
@@ -27,21 +42,6 @@
       "@demo/ui/ui-todo-item": ["ui/ui-todo-item/src/index.ts"],
       "@demo/utils/utils-data-service": [
         "utils/utils-data-service/src/index.ts"
-      ],
-      "@demo/features/feature-todo-delete": [
-        "features/feature-todo-delete/src/index.ts"
-      ],
-      "@demo/features/feature-todo-common": [
-        "features/feature-todo-common/src/index.ts"
-      ],
-      "@demo/features/feature-todo-resolution": [
-        "features/feature-todo-resolution/src/index.ts"
-      ],
-      "@demo/features/feature-todo-details": [
-        "features/feature-todo-details/src/index.ts"
-      ],
-      "@demo/features/feature-todo-create": [
-        "features/feature-todo-create/src/index.ts"
       ]
     }
   },

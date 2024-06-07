@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, TrackByFunction,} from '@angular/core';
-import {CommonModule, NgFor} from '@angular/common';
+
 import {FeatureTodoList} from '../feature-todo-list';
 import {UiTodoItem, UiTodoItemComponent} from '@demo/ui/ui-todo-item';
 import {map, Observable} from 'rxjs';
@@ -10,19 +10,19 @@ import {HttpRequestState} from 'ngx-http-request-state';
 import {TodoListDeleteComponent} from "./todo-list-delete.component";
 import {TodoListResolutionComponent} from "./todo-list-resolution.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'feature-todo-list',
   standalone: true,
   imports: [
-    CommonModule,
-    NgFor,
     UiTodoItemComponent,
     UiLoadedContentComponent,
     IsLoadingPipe,
     HasErrorPipe,
     TodoListDeleteComponent,
     TodoListResolutionComponent,
+    AsyncPipe
   ],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],

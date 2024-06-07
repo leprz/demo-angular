@@ -4,15 +4,15 @@
   'loaded-content--loading': content.isLoading,
   'loaded-content--error': content.error,
   }"
->
-  <ng-container *ngIf="content.isLoading">
+  >
+  @if (content.isLoading) {
     <ui-loading></ui-loading>
-  </ng-container>
-  <ng-container *ngIf="!content.isLoading && content.error as error">
+  }
+  @if (!content.isLoading && content.error; as error) {
     <h2>Something went wrong</h2>
     {{ error.message }}
-  </ng-container>
-  <ng-container *ngIf="!content.isLoading && !content.error">
+  }
+  @if (!content.isLoading && !content.error) {
     <ng-content></ng-content>
-  </ng-container>
+  }
 </div>

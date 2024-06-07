@@ -1,43 +1,49 @@
-<ui-loaded-content
-  *ngIf="todoDetailsResult$ | async as details"
-  [content]="details">
-  <article
-    *ngIf="details.value?.content as todo"
-    class="todo-details" [ngClass]="{'todo-details__complete': todo.isComplete}">
-    <div class="todo-details__header">
-      <span class="todo-details__status">
-        {{ todo.isComplete ? 'Done' : 'Todo' }}
-      </span>
-      <div class="todo-details__actions">
-        <span
-          class="todo-details__action todo-details__action--resolution">
-            <ng-container *ngIf="featureResolutionResult$ | async as resolutionResult">
-              <span *ngIf="resolutionResult.data | hasError" [title]="resolutionResult.data?.error?.message" class="icon-exclamation"></span>
-              <button
-                type="button"
-                (click)="onResolutionButtonClick(todo.isComplete)"
-              >
-                {{ todo.isComplete ? 'Unresolve' : 'Resolve' }}
-              </button>
-            </ng-container>
-        </span>
-        <span
-          class="todo-details__action todo-details__action--delete">
-            <ng-container *ngIf="deleteResult$ | async as deleteResult">
-             <span *ngIf=" deleteResult.data | hasError" [title]="deleteResult.data?.error?.message" class="icon-exclamation"></span>
-              <button
-                [disabled]="deleteResult.data | isLoading"
-                (click)="onDeleteButtonClick()">
-                Delete
-              </button>
-            </ng-container>
-        </span>
-      </div>
-    </div>
-    <div class="todo-details__body">
-      <span>#{{ todo.id }}</span>
-      <h2>{{ todo.name }}</h2>
-    </div>
-  </article>
-</ui-loaded-content>
+@if (todoDetailsResult$ | async; as details) {
+  <ui-loaded-content
+    [content]="details">
+    @if (details.value?.content; as todo) {
+      <article
+        class="todo-details" [ngClass]="{'todo-details__complete': todo.isComplete}">
+        <div class="todo-details__header">
+          <span class="todo-details__status">
+            {{ todo.isComplete ? 'Done' : 'Todo' }}
+          </span>
+          <div class="todo-details__actions">
+            <span
+              class="todo-details__action todo-details__action--resolution">
+              @if (featureResolutionResult$ | async; as resolutionResult) {
+                @if (resolutionResult.data | hasError) {
+                  <span [title]="resolutionResult.data?.error?.message" class="icon-exclamation"></span>
+                }
+                <button
+                  type="button"
+                  (click)="onResolutionButtonClick(todo.isComplete)"
+                  >
+                  {{ todo.isComplete ? 'Unresolve' : 'Resolve' }}
+                </button>
+              }
+            </span>
+            <span
+              class="todo-details__action todo-details__action--delete">
+              @if (deleteResult$ | async; as deleteResult) {
+                @if ( deleteResult.data | hasError) {
+                  <span [title]="deleteResult.data?.error?.message" class="icon-exclamation"></span>
+                }
+                <button
+                  [disabled]="deleteResult.data | isLoading"
+                  (click)="onDeleteButtonClick()">
+                  Delete
+                </button>
+              }
+            </span>
+          </div>
+        </div>
+        <div class="todo-details__body">
+          <span>#{{ todo.id }}</span>
+          <h2>{{ todo.name }}</h2>
+        </div>
+      </article>
+    }
+  </ui-loaded-content>
+}
 

@@ -6,27 +6,30 @@ import {
   FeatureTodoResolutionResult,
 } from "@demo/features/feature-todo-common";
 import {filterNill, HasErrorPipe, IsLoadingPipe} from "@demo/utils/utils-data-service";
-import {AsyncPipe, NgIf} from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 
 export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { isComplete: boolean };
 @Component({
   selector: 'feature-todo-list-resolution',
   template: `
-    <span
-      *ngIf="params$ | async as params"
-      class="todo-list-resolution">
-          <ng-container *ngIf="resolutionResult$ | async as resolutionResult">
-            <span *ngIf="resolutionResult.data | hasError" [title]="resolutionResult.data?.error?.message"
-                  class="warning icon-exclamation"></span>
-            <input
-              type="checkbox"
-              [disabled]="resolutionResult.data | isLoading"
-              [checked]="params.isComplete"
-              (change)="onResolutionChange($event, params)"
+    @if (params$ | async; as params) {
+      <span
+        class="todo-list-resolution">
+        @if (resolutionResult$ | async; as resolutionResult) {
+          @if (resolutionResult.data | hasError) {
+            <span [title]="resolutionResult.data?.error?.message"
+            class="warning icon-exclamation"></span>
+          }
+          <input
+            type="checkbox"
+            [disabled]="resolutionResult.data | isLoading"
+            [checked]="params.isComplete"
+            (change)="onResolutionChange($event, params)"
             >
-          </ng-container>
-        </span>
-  `,
+        }
+      </span>
+    }
+    `,
   styles: [`
     .todo-list-resolution {
       display: flex;
@@ -41,9 +44,8 @@ export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { 
   imports: [
     AsyncPipe,
     HasErrorPipe,
-    IsLoadingPipe,
-    NgIf
-  ]
+    IsLoadingPipe
+]
 })
 export class TodoListResolutionComponent {
   readonly params$ = new BehaviorSubject<FeatureTodoListResolutionParams | null>(null);

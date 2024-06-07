@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideEffects(),
     provideStore(),
-    provideStoreDevtools(),
+    provideStoreDevtools({connectInZone: true}),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideAnimations(),
   ],

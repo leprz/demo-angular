@@ -2,14 +2,16 @@
   [@fadeInOutAnimation]="fade ? 'out' : 'in'"
   class="todo-item"
   [ngClass]="{ 'todo-item--complete': todo.isComplete }"
->
+  >
   <div class="todo-item__col todo-item__prefix">
     <ng-content select="[todo-item-prefix]"></ng-content>
-    <ng-container *ngIf="todo.detailsUrl; else title">
+    @if (todo.detailsUrl) {
       <a class="todo-item__details" [routerLink]="todo.detailsUrl">
         <ng-template [ngTemplateOutlet]="title"></ng-template>
       </a>
-    </ng-container>
+    } @else {
+      <span class="todo-item__title">{{ todo.title }}</span>
+    }
     <ng-template #title>
       <span class="todo-item__title">{{ todo.title }}</span>
     </ng-template>

@@ -7,12 +7,14 @@ import {combineLatestWith, interval, map, of, take} from "rxjs";
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div *ngIf="isVisible$ | async" class="ui-loading">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>`,
+    @if (isVisible$ | async) {
+      <div class="ui-loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    }`,
   styleUrls: ['./ui-loading.component.scss'],
 })
 export class UiLoadingComponent {

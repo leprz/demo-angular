@@ -1,3 +1,5 @@
-<small class="error-block" *ngFor="let errorMessage of errors(); let last=last;">
-  {{last ? errorMessage : ''}}
-</small>
+@for (errorMessage of errors(); track errorMessage; let last = $last) {
+  <small class="error-block">
+    {{last ? errorMessage : ''}}
+  </small>
+}

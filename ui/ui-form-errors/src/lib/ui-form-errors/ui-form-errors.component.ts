@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnDestroy, signal} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {AbstractControl, AbstractControlDirective, FormControl, ValidationErrors} from "@angular/forms";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'ui-form-errors',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './ui-form-errors.component.html',
   styleUrls: ['./ui-form-errors.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

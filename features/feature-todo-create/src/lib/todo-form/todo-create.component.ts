@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FeatureTodoCreate } from '../feature-todo-create';
 import { TodoCreateForm, TodoCreateFormData } from './todo-create.form';
@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'feature-todo-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, UiFormErrorsComponent],
+  imports: [ReactiveFormsModule, UiFormErrorsComponent],
   templateUrl: './todo-create.component.html',
   styleUrls: ['./todo-create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
