@@ -23,6 +23,7 @@ export const todoDetailsActions = createActionGroup({
   source: 'todo details',
   events: {
     'opened': props<ActionPayload<typeof ReadOneTodoContract.pathParams>>(),
+    'reloaded': props<ActionPayload<typeof ReadOneTodoContract.pathParams>>(),
     'loaded success': props<ActionPayload<typeof ReadOneTodoContract.result>>(),
     'loaded error': props<ActionPayload<HttpErrorResponse>>(),
     'silent reload requested': props<ActionPayload<typeof ReadOneTodoContract.pathParams>>(),
@@ -70,6 +71,18 @@ export class TodoDetailsSelectors {
 export class TodoDetailsEffects {
   readonly loadTodoDetails$ = createEffect(() => this.actions$.pipe(
     ofType(todoDetailsActions.opened, todoDetailsActions.silentReloadRequested),
+    fetch({
+      run: ({payload}) => this.todoDataService.readOneById({
+        id: payload.id
+      }).pipe(
+        map(todo => todoDetailsActions.loadedSuccess({payload: todo}))
+      ),
+      onError: (action, error) => todoDetailsActions.loadedError({payload: error})
+    })
+  ));
+
+  readonly reloadTodoDetails$ = createEffect(() => this.actions$.pipe(
+    ofType(todoDetailsActions.reloaded),
     fetch({
       run: ({payload}) => this.todoDataService.readOneById({
         id: payload.id

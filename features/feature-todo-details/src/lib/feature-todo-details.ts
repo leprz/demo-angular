@@ -10,14 +10,21 @@ export class FeatureTodoDetails {
      readonly todo$ = this.store.select(TodoDetailsSelectors.todo);
 
      readonly events$ = (id: string) => this.actions$.pipe(
-       ofType(todoCommonActions.todoResolutionUpdatedWithSuccess),
+       ofType(
+         todoCommonActions.todoResolutionUpdatedWithSuccess,
+         todoCommonActions.todoUpdatedWithSuccess
+       ),
        tap(() => {
-         this.store.dispatch(todoDetailsActions.silentReloadRequested({payload: {id}}))
+         this.reload(id);
        })
      );
 
     loadTodo(id: string): void {
       this.store.dispatch(todoDetailsActions.opened({payload: {id}}));
+    }
+
+    reload(id: string): void {
+      this.store.dispatch(todoDetailsActions.reloaded({payload: {id}}));
     }
 
     constructor(

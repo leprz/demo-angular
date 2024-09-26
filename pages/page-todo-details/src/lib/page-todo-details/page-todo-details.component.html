@@ -13,35 +13,65 @@
               class="todo-details__action todo-details__action--resolution">
               @if (featureResolutionResult$ | async; as resolutionResult) {
                 @if (resolutionResult.data | hasError) {
-                  <span [title]="resolutionResult.data?.error?.message" class="icon-exclamation"></span>
+                  <span [title]="resolutionResult.data.error.message" class="icon-exclamation"></span>
                 }
                 <button
                   type="button"
                   (click)="onResolutionButtonClick(todo.isComplete)"
-                  >
+                >
                   {{ todo.isComplete ? 'Unresolve' : 'Resolve' }}
                 </button>
               }
             </span>
-            <span
-              class="todo-details__action todo-details__action--delete">
-              @if (deleteResult$ | async; as deleteResult) {
-                @if ( deleteResult.data | hasError) {
-                  <span [title]="deleteResult.data?.error?.message" class="icon-exclamation"></span>
-                }
-                <button
-                  [disabled]="deleteResult.data | isLoading"
-                  (click)="onDeleteButtonClick()">
-                  Delete
-                </button>
+            <feature-permissions #featurePermissionsComponent>
+              @if (featurePermissionsComponent.permissions$ | async; as permissions) {
+                <feature-todo-delete #featureDelete [params]="todo" [permissions]="permissions.value ?? []">
+                  @if (featureDelete.deleteResult$ | async; as deleteResult) {
+                    @if (deleteResult.data | hasError) {
+                      <span [title]="deleteResult.data.error.message" class="icon-exclamation"></span>
+                    }
+                    <span
+                      class="todo-details__action todo-details__action--delete">
+                   <button
+                     [disabled]="featureDelete.isDisabled()"
+                     (click)="featureDelete.delete(todo)"
+                   >Delete</button>
+                </span>
+                  }
+                </feature-todo-delete>
               }
-            </span>
+            </feature-permissions>
+<!--            <feature-todo-delete #featureDelete [params]="todo">-->
+<!--              @if (featureDelete.deleteResult$ | async; as deleteResult) {-->
+<!--                <ui-todo-delete-button-->
+<!--                  [isDisabled]="featureDelete.isDisabled()"-->
+<!--                  [deleteResult]="deleteResult"-->
+<!--                  (deleteClicked)="featureDelete.delete(todo)"-->
+<!--                ></ui-todo-delete-button>-->
+<!--              }-->
+<!--            </feature-todo-delete>-->
           </div>
         </div>
-        <div class="todo-details__body">
+        <form [formGroup]="todoFormGroup" class="todo-details__body">
           <span>#{{ todo.id }}</span>
-          <h2>{{ todo.name }}</h2>
-        </div>
+          <editable class="todo-details__field-name"
+                    (save)="onEditableSave()"
+                    (cancel)="onEditableCancel()"
+                    (modeChange)="onEditableModeChange()"
+          >
+            <ng-template viewMode>
+              <span>{{ todoFormGroup.get(TodoEditForm.FIELD_TITLE)?.value }}</span>
+            </ng-template>
+            <ng-template editMode>
+              <input type="text" editableOnEnter editableFocusable editableOnEscape
+                     [formControlName]="TodoEditForm.FIELD_TITLE">
+              <ui-form-errors
+                class="form-control__errors"
+                [control]="todoFormGroup.controls[TodoEditForm.FIELD_TITLE]"
+              ></ui-form-errors>
+            </ng-template>
+          </editable>
+        </form>
       </article>
     }
   </ui-loaded-content>

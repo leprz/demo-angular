@@ -17,7 +17,7 @@ export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { 
         class="todo-list-resolution">
         @if (resolutionResult$ | async; as resolutionResult) {
           @if (resolutionResult.data | hasError) {
-            <span [title]="resolutionResult.data?.error?.message"
+            <span [title]="resolutionResult.data.error.message"
             class="warning icon-exclamation"></span>
           }
           <input

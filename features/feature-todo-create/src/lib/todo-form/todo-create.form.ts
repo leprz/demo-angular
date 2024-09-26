@@ -1,27 +1,19 @@
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { UuidGen } from '@demo/utils/utils-data-service';
 import { Injectable } from '@angular/core';
+import { TodoForm, todoFormControlNames } from '@demo/features/feature-todo-common';
 
 export interface TodoCreateFormData {
-  [TodoCreateForm.CONTROL_NAME_ID]: string;
-  [TodoCreateForm.CONTROL_NAME_NAME]: string;
+  [todoFormControlNames.id]: string;
+  [todoFormControlNames.name]: string;
 }
 
 @Injectable()
 export class TodoCreateForm {
-  static readonly CONTROL_NAME_ID = 'id';
-  static readonly CONTROL_NAME_NAME = 'name';
-
   readonly formGroup = this.fb.group({
-    [TodoCreateForm.CONTROL_NAME_ID]: [
-      '',
-      [Validators.required, Validators.minLength(1)],
-    ],
-    [TodoCreateForm.CONTROL_NAME_NAME]: [
-      '',
-      [Validators.required, Validators.minLength(3)],
-    ],
+    [todoFormControlNames.id]: this.todoForm.group.controls.id,
+    [todoFormControlNames.name]: this.todoForm.group.controls.name,
   });
 
   private readonly submitted = new Subject<TodoCreateFormData>();
@@ -30,12 +22,12 @@ export class TodoCreateForm {
   submit(): void {
     this.formGroup.markAllAsTouched();
     this.formGroup.controls[
-      TodoCreateForm.CONTROL_NAME_NAME
+      todoFormControlNames.name
     ].updateValueAndValidity();
     if (this.formGroup.valid) {
       this.submitted.next({
-        id: this.formGroup.controls[TodoCreateForm.CONTROL_NAME_ID].value,
-        name: this.formGroup.controls[TodoCreateForm.CONTROL_NAME_NAME].value,
+        [todoFormControlNames.id]: this.formGroup.controls[todoFormControlNames.id].value,
+        [todoFormControlNames.name]: this.formGroup.controls[todoFormControlNames.name].value,
       });
       this.reset();
     }
@@ -43,14 +35,15 @@ export class TodoCreateForm {
 
   private reset(): void {
     this.formGroup.reset();
-    this.formGroup.controls[TodoCreateForm.CONTROL_NAME_ID].setValue(
+    this.formGroup.controls[todoFormControlNames.id].setValue(
       this.uuidGen.generate()
     );
   }
 
   constructor(
     private readonly fb: NonNullableFormBuilder,
-    private readonly uuidGen: UuidGen
+    private readonly uuidGen: UuidGen,
+    private readonly todoForm: TodoForm
   ) {
     this.reset();
   }

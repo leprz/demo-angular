@@ -3,8 +3,8 @@
     <input
       class="form-control__input"
       type="text"
-      [formControlName]="TodoFormForm.CONTROL_NAME_NAME"
-      (blur)="onInputBlur(formGroup.controls[TodoFormForm.CONTROL_NAME_NAME])"
+      [formControlName]="todoFormControlNames.name"
+      (blur)="onInputBlur(formGroup.controls[todoFormControlNames.name])"
     />
     <button class="form-control__submit btn-icon" type="submit">
       <i class="icon-plus"></i>

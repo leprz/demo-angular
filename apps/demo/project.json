@@ -7,12 +7,12 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/demo",
         "index": "apps/demo/src/index.html",
-        "main": "apps/demo/src/main.ts",
+        "browser": "apps/demo/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/demo/tsconfig.app.json",
         "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
@@ -36,9 +36,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -47,7 +45,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "demo:build:production"

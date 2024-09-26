@@ -15,7 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@demo/contract-permissions": [
+        "contracts/contract-permissions/src/index.ts"
+      ],
       "@demo/contracts/contract-todo": ["contracts/contract-todo/src/index.ts"],
+      "@demo/feature-common": ["features/feature-common/src/index.ts"],
+      "@demo/feature-permissions": [
+        "features/feature-permissions/src/index.ts"
+      ],
+      "@demo/feature-todo-edit": ["features/feature-todo-edit/src/index.ts"],
       "@demo/features/feature-todo-common": [
         "features/feature-todo-common/src/index.ts"
       ],

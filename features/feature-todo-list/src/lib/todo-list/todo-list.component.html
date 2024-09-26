@@ -15,10 +15,23 @@
               todo-item-prefix
               [params]="todoItem">
             </feature-todo-list-resolution>
-            <feature-todo-list-delete
-              todo-item-action
-              [params]="todoItem">
-            </feature-todo-list-delete>
+            <feature-permissions
+              todo-item-suffix
+              #featurePermissions>
+              @if (featurePermissions.permissions$ | async; as permissions) {
+                <feature-todo-delete
+                  [params]="todoItem"
+                  [permissions]="permissions.value ?? []"
+                  #todoDelete
+                >
+                  <feature-ui-todo-delete-button
+                    (click)="todoDelete.delete(todoItem)"
+                    [isDisabled]="todoDelete.isDisabled()"
+                    [deleteResult]="todoDelete.deleteResult$ | async">
+                  </feature-ui-todo-delete-button>
+                </feature-todo-delete>
+              }
+            </feature-permissions>
           </ui-todo-item>
         }
       } @else {

@@ -5,6 +5,7 @@ import { FeatureTodoCreate } from '../feature-todo-create';
 import { TodoCreateForm, TodoCreateFormData } from './todo-create.form';
 import { UiFormErrorsComponent } from '@demo/ui/ui-form-errors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { todoFormControlNames } from '@demo/features/feature-todo-common';
 
 @Component({
   selector: 'feature-todo-create',
@@ -41,4 +42,6 @@ export class TodoCreateComponent {
   onInputBlur(control: FormControl): void {
     control.updateValueAndValidity();
   }
+
+  protected readonly todoFormControlNames = todoFormControlNames;
 }

@@ -12,16 +12,16 @@ import {Subject, takeUntil} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiFormErrorsComponent implements OnDestroy {
-  @Input({required: true}) set control(control: FormControl) {
+  @Input({required: true}) set control(control: AbstractControl) {
 
     this._control = control;
     this.destroyed$.next();
-
     this._control.statusChanges?.pipe(
       takeUntil(this.destroyed$)
     ).subscribe(() => {
       this.listErrors();
     });
+    this.listErrors();
   }
 
   @Input() set customErrors(customErrors: Record<string, ((params: ValidationErrors | null) => string) | undefined>) {

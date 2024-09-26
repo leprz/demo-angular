@@ -36,7 +36,7 @@ export const UpdateOneTodoContract =
     .Put
     .Path('/todos/:id')
     .PathParameters<Pick<TodoResponseItem, 'id'>>()
-    .Body<Partial<Omit<TodoResponseItem, 'id'>>>()
+    .Body<Partial<Omit<TodoResponseItem, 'id'| 'isComplete'>>>()
     .Returns<void>();
 
 export const DeleteOneTodoContract =

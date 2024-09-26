@@ -1,16 +1,17 @@
-import {ChangeDetectionStrategy, Component, TrackByFunction,} from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 
-import {FeatureTodoList} from '../feature-todo-list';
-import {UiTodoItem, UiTodoItemComponent} from '@demo/ui/ui-todo-item';
-import {map, Observable} from 'rxjs';
-import {UiLoadedContentComponent} from '@demo/ui/ui-loaded-content';
-import {filterNill, HasErrorPipe, IsLoadingPipe,} from '@demo/utils/utils-data-service';
-import {animate, style, transition, trigger} from '@angular/animations';
-import {HttpRequestState} from 'ngx-http-request-state';
-import {TodoListDeleteComponent} from "./todo-list-delete.component";
-import {TodoListResolutionComponent} from "./todo-list-resolution.component";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {AsyncPipe} from "@angular/common";
+import { FeatureTodoList } from '../feature-todo-list';
+import { UiTodoItem, UiTodoItemComponent } from '@demo/ui/ui-todo-item';
+import { map, Observable } from 'rxjs';
+import { UiLoadedContentComponent } from '@demo/ui/ui-loaded-content';
+import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { HttpRequestState } from 'ngx-http-request-state';
+import { FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent } from '@demo/features/feature-todo-common';
+import { TodoListResolutionComponent } from './todo-list-resolution.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
+import { FeaturePermissionsComponent } from '@demo/feature-common';
 
 @Component({
   selector: 'feature-todo-list',
@@ -20,9 +21,11 @@ import {AsyncPipe} from "@angular/common";
     UiLoadedContentComponent,
     IsLoadingPipe,
     HasErrorPipe,
-    TodoListDeleteComponent,
+    UiTodoDeleteButtonComponent,
     TodoListResolutionComponent,
-    AsyncPipe
+    AsyncPipe,
+    FeatureTodoDeleteComponent,
+    FeaturePermissionsComponent
   ],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],

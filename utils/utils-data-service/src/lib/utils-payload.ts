@@ -1,5 +1,6 @@
 import {HttpRequestState} from "ngx-http-request-state";
 import {Pipe, PipeTransform} from "@angular/core";
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface ActionPayload<T> {
   payload: T
@@ -28,7 +29,9 @@ export class IsLoadingPipe implements PipeTransform {
   pure: true,
 })
 export class HasErrorPipe implements PipeTransform {
-  transform(value: HttpRequestState<unknown> | null): boolean {
+  transform(
+    value: HttpRequestState<unknown> | null
+  ): value is HttpRequestState<unknown> & { error: HttpErrorResponse | Error } {
     return value?.error !== undefined;
   }
 }
