@@ -1,18 +1,22 @@
-import {Component, Input} from "@angular/core";
+import { Component, input, Input, output, signal } from '@angular/core';
 import {BehaviorSubject, Observable, switchMap} from "rxjs";
 import {
+  FeatureTodoDelete,
   FeatureTodoResolution,
   FeatureTodoResolutionPayload,
-  FeatureTodoResolutionResult,
-} from "@demo/features/feature-todo-common";
+  FeatureTodoResolutionResult, FeatureTodoResolutionUpdatePayload
+} from '@demo/features/feature-todo-common';
 import {filterNill, HasErrorPipe, IsLoadingPipe} from "@demo/utils/utils-data-service";
 import { AsyncPipe } from "@angular/common";
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { isLoadingState } from 'ngx-http-request-state';
+import { isDisabled } from '@testing-library/user-event/utils/misc/isDisabled';
 
 export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { isComplete: boolean };
 @Component({
   selector: 'feature-todo-list-resolution',
   template: `
-    @if (params$ | async; as params) {
+    @if (params(); as params) {
       <span
         class="todo-list-resolution">
         @if (resolutionResult$ | async; as resolutionResult) {
@@ -22,10 +26,10 @@ export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { 
           }
           <input
             type="checkbox"
-            [disabled]="resolutionResult.data | isLoading"
+            [disabled]="isDisabled()"
             [checked]="params.isComplete"
             (change)="onResolutionChange($event, params)"
-            >
+          >
         }
       </span>
     }
@@ -48,20 +52,21 @@ export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { 
 ]
 })
 export class TodoListResolutionComponent {
-  readonly params$ = new BehaviorSubject<FeatureTodoListResolutionParams | null>(null);
+  readonly params = input.required<FeatureTodoResolutionUpdatePayload>();
+  readonly isDisabled = signal<boolean>(false);
+  readonly resolutionChanged = output<boolean>();
 
-  @Input({required: true}) set params(params:  FeatureTodoListResolutionParams) {
-    this.params$.next(params);
-  };
-
-  readonly resolutionResult$: Observable<{ data: FeatureTodoResolutionResult | null }> = this.params$.pipe(
+  readonly resolutionResult$: Observable<{ data: FeatureTodoResolutionResult | null }> = toObservable(this.params).pipe(
     filterNill(),
     switchMap(params => this.featureTodoResolution.resolutionResult$(params)),
   );
 
   constructor(
     private readonly featureTodoResolution: FeatureTodoResolution) {
-  }
+      this.resolutionResult$.pipe(takeUntilDestroyed()).subscribe((result) => {
+        this.isDisabled.set(isLoadingState(result.data ?? undefined));
+      });
+    }
 
   onResolutionChange(
     event: Event,
@@ -70,10 +75,11 @@ export class TodoListResolutionComponent {
       isComplete: boolean;
     }
   ): void {
-    this.featureTodoResolution.updateResolution({
-      ...params,
-      isComplete: !params.isComplete,
-    });
+    this.resolutionChanged.emit(!params.isComplete);
+    // this.featureTodoResolution.updateResolution({
+    //   ...params,
+    //   isComplete: !params.isComplete,
+    // });
     const input: HTMLInputElement = event.target as HTMLInputElement;
     input.checked = params.isComplete;
   }

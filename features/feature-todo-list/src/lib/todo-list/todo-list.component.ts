@@ -7,7 +7,11 @@ import { UiLoadedContentComponent } from '@demo/ui/ui-loaded-content';
 import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { HttpRequestState } from 'ngx-http-request-state';
-import { FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent } from '@demo/features/feature-todo-common';
+import {
+  FeatureTodoDeleteComponent,
+  FeatureTodoResolutionComponent,
+  UiTodoDeleteButtonComponent
+} from '@demo/features/feature-todo-common';
 import { TodoListResolutionComponent } from './todo-list-resolution.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
@@ -25,7 +29,8 @@ import { FeaturePermissionsComponent } from '@demo/feature-common';
     TodoListResolutionComponent,
     AsyncPipe,
     FeatureTodoDeleteComponent,
-    FeaturePermissionsComponent
+    FeaturePermissionsComponent,
+    FeatureTodoResolutionComponent
   ],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],

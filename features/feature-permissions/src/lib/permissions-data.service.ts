@@ -11,6 +11,6 @@ import { Injectable } from '@angular/core';
 })
 export class PermissionsDataService extends ContractsPermissionsDataService {
   override readManyPermissions(): Observable<GetPermissionsResult> {
-    return of(GetPermissionsContractObjectMother.default());
+    return of(GetPermissionsContractObjectMother.allEnabled());
   }
 }

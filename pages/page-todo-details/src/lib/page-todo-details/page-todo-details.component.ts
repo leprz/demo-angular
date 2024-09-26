@@ -5,7 +5,7 @@ import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-
 import {
   FeatureTodoDelete,
   FeatureTodoDeleteComponent,
-  FeatureTodoResolution,
+  FeatureTodoResolution, FeatureTodoResolutionComponent,
   FeatureTodoResolutionResult,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
@@ -30,7 +30,7 @@ import { FeaturePermissionsComponent } from '@demo/feature-common';
   standalone: true,
   imports: [CommonModule, HasErrorPipe, IsLoadingPipe, UiLoadedContentComponent, EditableComponent,
     ViewModeDirective,
-    EditModeDirective, EditableOnEnterDirective, ReactiveFormsModule, EditableFocusDirective, UiFormErrorsComponent, EditableOnEscapeDirective, FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent, FeaturePermissionsComponent
+    EditModeDirective, EditableOnEnterDirective, ReactiveFormsModule, EditableFocusDirective, UiFormErrorsComponent, EditableOnEscapeDirective, FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent, FeaturePermissionsComponent, FeatureTodoResolutionComponent
   ],
   templateUrl: './page-todo-details.component.html',
   styleUrls: ['./page-todo-details.component.scss'],
@@ -44,11 +44,6 @@ export class PageTodoDetailsComponent {
   readonly onDeleteSuccess$ = this.featureTodoDelete.deleteOneSuccess$({
     id: this.id
   });
-
-  readonly featureResolutionResult$: Observable<{ data: FeatureTodoResolutionResult | null }>
-    = this.featureTodoResolution.resolutionResult$({ id: this.id }).pipe(
-    filterNill()
-  );
 
   readonly todoEditForm: TodoEditForm = this.featureTodoEdit.formBuilder.create();
 
@@ -99,13 +94,6 @@ export class PageTodoDetailsComponent {
           name: this.todoEditForm.value.title
         });
       }
-    });
-  }
-
-  onResolutionButtonClick(isComplete: boolean): void {
-    this.featureTodoResolution.updateResolution({
-      id: this.id,
-      isComplete: !isComplete
     });
   }
 

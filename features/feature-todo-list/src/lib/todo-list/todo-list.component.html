@@ -11,10 +11,22 @@
             [fade]="todoItem.isComplete"
             @hide
             >
-            <feature-todo-list-resolution
+            <feature-permissions
               todo-item-prefix
-              [params]="todoItem">
-            </feature-todo-list-resolution>
+              #featurePermissions>
+              @if (featurePermissions.permissions$ | async; as permissions) {
+                <feature-todo-resolution
+                  [params]="todoItem"
+                  [permissions]="permissions.value ?? []"
+                  #todoResolution
+                >
+                  <feature-todo-list-resolution
+                    (resolutionChanged)="todoResolution.updateResolution(todoItem, $event)"
+                    [params]="todoItem">
+                  </feature-todo-list-resolution>
+                </feature-todo-resolution>
+              }
+            </feature-permissions>
             <feature-permissions
               todo-item-suffix
               #featurePermissions>

@@ -1,7 +1,7 @@
 import { GetPermissionsContract, PermissionsKeyRequestProps } from './contracts-permissions';
 
 export class GetPermissionsContractObjectMother {
-  static default(): typeof GetPermissionsContract.result {
+  static allEnabled(): typeof GetPermissionsContract.result {
     return [{
       key: PermissionsKeyRequestProps.todos,
       value: {
@@ -13,11 +13,47 @@ export class GetPermissionsContractObjectMother {
     }];
   }
 
+  static readOnly(): typeof GetPermissionsContract.result {
+    return [{
+      key: PermissionsKeyRequestProps.todos,
+      value: {
+        view: true,
+        read: true,
+        write: false,
+        delete: false,
+      },
+    }];
+  }
+
+  static writeOnly(): typeof GetPermissionsContract.result {
+    return [{
+      key: PermissionsKeyRequestProps.todos,
+      value: {
+        view: true,
+        read: false,
+        write: true,
+        delete: false,
+      },
+    }];
+  }
+
+  static deleteOnly(): typeof GetPermissionsContract.result {
+    return [{
+      key: PermissionsKeyRequestProps.todos,
+      value: {
+        view: true,
+        read: false,
+        write: false,
+        delete: true,
+      },
+    }];
+  }
+
   static empty(): typeof GetPermissionsContract.result {
     return [];
   }
 
-  static restricted(): typeof GetPermissionsContract.result {
+  static allDisabled(): typeof GetPermissionsContract.result {
     return [{
       key: PermissionsKeyRequestProps.todos,
       value: {
