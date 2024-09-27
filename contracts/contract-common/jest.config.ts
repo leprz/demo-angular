@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'contract-permissions',
+  displayName: 'contracts-contract-common',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/contracts/contract-permissions',
+  coverageDirectory: '../../coverage/contracts/contract-common',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

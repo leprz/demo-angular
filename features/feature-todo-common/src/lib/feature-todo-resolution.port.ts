@@ -5,7 +5,7 @@ import {UpdateOneTodoResolutionContract} from "@demo/contracts/contract-todo";
 export type FeatureTodoResolutionPayload = typeof UpdateOneTodoResolutionContract.pathParams;
 export type FeatureTodoResolutionResult = HttpRequestState<typeof UpdateOneTodoResolutionContract.result>;
 export type FeatureTodoResolutionUpdatePayload = typeof UpdateOneTodoResolutionContract.pathParams & typeof UpdateOneTodoResolutionContract.bodyParams;
-export abstract class FeatureTodoResolution {
+export abstract class FeatureTodoResolutionPort {
   abstract readonly resolutionResult$: (payload: FeatureTodoResolutionPayload) => Observable<{ data: FeatureTodoResolutionResult | null }>
   abstract updateResolution(payload: FeatureTodoResolutionUpdatePayload): void
 }

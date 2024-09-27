@@ -8,7 +8,7 @@ import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-
 import { animate, style, transition, trigger } from '@angular/animations';
 import { HttpRequestState } from 'ngx-http-request-state';
 import {
-  FeatureTodoDeleteComponent,
+  FeatureTodoDeleteComponent, FeatureTodoDeletePolicyProviderComponent,
   FeatureTodoResolutionComponent,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
@@ -30,7 +30,8 @@ import { FeaturePermissionsComponent } from '@demo/feature-common';
     AsyncPipe,
     FeatureTodoDeleteComponent,
     FeaturePermissionsComponent,
-    FeatureTodoResolutionComponent
+    FeatureTodoResolutionComponent,
+    FeatureTodoDeletePolicyProviderComponent,
   ],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],

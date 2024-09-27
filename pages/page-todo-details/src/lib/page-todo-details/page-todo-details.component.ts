@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, take } from 'rxjs';
+import { take } from 'rxjs';
 import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import {
-  FeatureTodoDelete,
   FeatureTodoDeleteComponent,
-  FeatureTodoResolution, FeatureTodoResolutionComponent,
-  FeatureTodoResolutionResult,
+  FeatureTodoDeletePolicyProviderComponent,
+  FeatureTodoDeletePort,
+  FeatureTodoResolutionComponent,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,12 +25,14 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FeatureTodoEdit, TodoEditForm } from '@demo/feature-todo-edit';
 import { UiFormErrorsComponent } from '@demo/ui/ui-form-errors';
 import { FeaturePermissionsComponent } from '@demo/feature-common';
+import { UiLoadingComponent } from '@demo/ui/ui-loading';
+import { PageTodoDetailsFeatureDeleteProviderComponent } from './page-todo-details-feature-delete-provider.component';
 
 @Component({
   standalone: true,
   imports: [CommonModule, HasErrorPipe, IsLoadingPipe, UiLoadedContentComponent, EditableComponent,
     ViewModeDirective,
-    EditModeDirective, EditableOnEnterDirective, ReactiveFormsModule, EditableFocusDirective, UiFormErrorsComponent, EditableOnEscapeDirective, FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent, FeaturePermissionsComponent, FeatureTodoResolutionComponent
+    EditModeDirective, EditableOnEnterDirective, ReactiveFormsModule, EditableFocusDirective, UiFormErrorsComponent, EditableOnEscapeDirective, FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent, FeaturePermissionsComponent, FeatureTodoResolutionComponent, FeatureTodoDeletePolicyProviderComponent, UiLoadingComponent, PageTodoDetailsFeatureDeleteProviderComponent
   ],
   templateUrl: './page-todo-details.component.html',
   styleUrls: ['./page-todo-details.component.scss'],
@@ -54,9 +56,8 @@ export class PageTodoDetailsComponent {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
-    private readonly featureTodoDelete: FeatureTodoDelete,
+    private readonly featureTodoDelete: FeatureTodoDeletePort,
     private readonly featureTodoDetails: FeatureTodoDetails,
-    private readonly featureTodoResolution: FeatureTodoResolution,
     private readonly featureTodoEdit: FeatureTodoEdit
   ) {
     featureTodoDetails.loadTodo(this.id);

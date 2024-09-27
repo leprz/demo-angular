@@ -1,7 +1,7 @@
-@if(uiTodoList$ | async; as todoList) {
+@if (uiTodoList$ | async; as todoList) {
   <ui-loaded-content
     [content]="todoList"
-    >
+  >
     <div class="todo-list">
       @if (todoList.value && todoList.value.length > 0) {
         @for (todoItem of todoList.value; track trackByFn($index, todoItem)) {
@@ -10,7 +10,7 @@
             [todo]="todoItem"
             [fade]="todoItem.isComplete"
             @hide
-            >
+          >
             <feature-permissions
               todo-item-prefix
               #featurePermissions>
@@ -27,23 +27,22 @@
                 </feature-todo-resolution>
               }
             </feature-permissions>
-            <feature-permissions
+            <feature-todo-delete-policy
               todo-item-suffix
-              #featurePermissions>
-              @if (featurePermissions.permissions$ | async; as permissions) {
-                <feature-todo-delete
-                  [params]="todoItem"
-                  [permissions]="permissions.value ?? []"
-                  #todoDelete
-                >
-                  <feature-ui-todo-delete-button
-                    (click)="todoDelete.delete(todoItem)"
-                    [isDisabled]="todoDelete.isDisabled()"
-                    [deleteResult]="todoDelete.deleteResult$ | async">
-                  </feature-ui-todo-delete-button>
-                </feature-todo-delete>
-              }
-            </feature-permissions>
+              #featureTodoDeletePolicy
+            >
+              <feature-todo-delete
+                [params]="todoItem"
+                [policy]="featureTodoDeletePolicy.policyResult()"
+                #todoDelete
+              >
+                <feature-ui-todo-delete-button
+                  (click)="todoDelete.delete(todoItem)"
+                  [isDisabled]="todoDelete.isDisabled()"
+                  [deleteResult]="todoDelete.deleteResult$ | async">
+                </feature-ui-todo-delete-button>
+              </feature-todo-delete>
+            </feature-todo-delete-policy>
           </ui-todo-item>
         }
       } @else {

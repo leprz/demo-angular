@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@demo/contract-permissions": [
-        "contracts/contract-permissions/src/index.ts"
+      "@demo/contracts/contract-common": [
+        "contracts/contract-common/src/index.ts"
       ],
       "@demo/contracts/contract-todo": ["contracts/contract-todo/src/index.ts"],
       "@demo/feature-common": ["features/feature-common/src/index.ts"],

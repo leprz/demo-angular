@@ -2,13 +2,13 @@ import {Injectable} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {todoResolutionActions, TodoResolutionSelectors, TodoResolutionState} from "./+store/todo-resolution.store";
 import {
-  FeatureTodoResolution,
+  FeatureTodoResolutionPort,
   FeatureTodoResolutionPayload,
   FeatureTodoResolutionUpdatePayload
 } from "@demo/features/feature-todo-common";
 
 @Injectable()
-export class FeatureTodoResolutionImpl implements FeatureTodoResolution {
+export class FeatureTodoResolutionImpl implements FeatureTodoResolutionPort {
   readonly resolutionResult$ = (payload: FeatureTodoResolutionPayload) =>
     this.store.select(TodoResolutionSelectors.resolution(payload.id));
 

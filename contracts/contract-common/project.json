@@ -1,7 +1,7 @@
 {
-  "name": "contract-permissions",
+  "name": "contracts-contract-common",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "contracts/contract-permissions/src",
+  "sourceRoot": "contracts/contract-common/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": ["type:contract"],
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "contracts/contract-permissions/jest.config.ts"
+        "jestConfig": "contracts/contract-common/jest.config.ts"
       }
     },
     "lint": {

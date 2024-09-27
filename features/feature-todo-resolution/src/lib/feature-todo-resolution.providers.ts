@@ -8,13 +8,13 @@ import {
   TodoResolutionEffects,
   todoResolutionReducer
 } from "./+store/todo-resolution.store";
-import {FeatureTodoResolution} from "@demo/features/feature-todo-common";
+import {FeatureTodoResolutionPort} from "@demo/features/feature-todo-common";
 
 export const featureTodoResolutionProviders: Array<Provider | EnvironmentProviders> = [
   TodoDataService,
   FeatureTodoResolutionImpl,
   {
-    provide: FeatureTodoResolution,
+    provide: FeatureTodoResolutionPort,
     useClass: FeatureTodoResolutionImpl,
   },
   provideEffects(TodoResolutionEffects),

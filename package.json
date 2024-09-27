@@ -2,7 +2,9 @@
   "name": "@demo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "local:lint:all": "nx run-many --target=lint --all"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "18.0.2",

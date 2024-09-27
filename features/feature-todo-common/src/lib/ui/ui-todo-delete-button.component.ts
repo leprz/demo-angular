@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { FeatureTodoDeleteResult } from '../feature-todo-delete.port';
+import { FeatureTodoDeleteResult } from '../todo-delete/feature-todo-delete.port';
 import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 
 @Component({
@@ -15,7 +15,7 @@ import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
           }
           <button
             class="btn-icon"
-            [disabled]="isDisabled()"
+            [disabled]="isDisabled() || (deleteResult.data | isLoading)"
             (click)="onDeleteButtonClick()">
             <i class="icon-remove"></i>
           </button>

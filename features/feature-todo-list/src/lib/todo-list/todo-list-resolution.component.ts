@@ -1,16 +1,15 @@
-import { Component, input, Input, output, signal } from '@angular/core';
-import {BehaviorSubject, Observable, switchMap} from "rxjs";
+import { Component, input, output, signal } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
 import {
-  FeatureTodoDelete,
-  FeatureTodoResolution,
   FeatureTodoResolutionPayload,
-  FeatureTodoResolutionResult, FeatureTodoResolutionUpdatePayload
+  FeatureTodoResolutionPort,
+  FeatureTodoResolutionResult,
+  FeatureTodoResolutionUpdatePayload
 } from '@demo/features/feature-todo-common';
-import {filterNill, HasErrorPipe, IsLoadingPipe} from "@demo/utils/utils-data-service";
-import { AsyncPipe } from "@angular/common";
+import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
+import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { isLoadingState } from 'ngx-http-request-state';
-import { isDisabled } from '@testing-library/user-event/utils/misc/isDisabled';
 
 export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { isComplete: boolean };
 @Component({
@@ -62,7 +61,7 @@ export class TodoListResolutionComponent {
   );
 
   constructor(
-    private readonly featureTodoResolution: FeatureTodoResolution) {
+    private readonly featureTodoResolution: FeatureTodoResolutionPort) {
       this.resolutionResult$.pipe(takeUntilDestroyed()).subscribe((result) => {
         this.isDisabled.set(isLoadingState(result.data ?? undefined));
       });
@@ -76,10 +75,8 @@ export class TodoListResolutionComponent {
     }
   ): void {
     this.resolutionChanged.emit(!params.isComplete);
-    // this.featureTodoResolution.updateResolution({
-    //   ...params,
-    //   isComplete: !params.isComplete,
-    // });
+
+    // prevent selecting of the checkbox when task is not complete (for example on error)
     const input: HTMLInputElement = event.target as HTMLInputElement;
     input.checked = params.isComplete;
   }
