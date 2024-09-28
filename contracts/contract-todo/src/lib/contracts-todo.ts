@@ -14,6 +14,8 @@ export const ReadManyTodosContract =
       content: TodoResponseItem[];
     }>();
 
+export type ReadManyTodosResult = typeof ReadManyTodosContract.result;
+
 export const ReadOneTodoContract =
   API
     .Get

@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/co
 
 import { FeatureTodoList } from '../feature-todo-list';
 import { UiTodoItem, UiTodoItemComponent } from '@demo/ui/ui-todo-item';
-import { map, Observable } from 'rxjs';
 import { UiLoadedContentComponent } from '@demo/ui/ui-loaded-content';
-import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
+import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { HttpRequestState } from 'ngx-http-request-state';
 import {
-  FeatureTodoDeleteComponent, FeatureTodoDeletePolicyProviderComponent,
+  FeatureTodoDeleteComponent,
+  FeatureTodoDeletePolicyProviderComponent,
+  FeatureTodoListComponent,
+  FeatureTodoListPolicyComponent,
   FeatureTodoResolutionComponent,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
@@ -16,9 +17,10 @@ import { TodoListResolutionComponent } from './todo-list-resolution.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { FeaturePermissionsComponent } from '@demo/feature-common';
+import { TodoListComponentMapperPipe } from './todo-list.component.mapper.pipe';
 
 @Component({
-  selector: 'feature-todo-list',
+  selector: 'feature-todo-list-container',
   standalone: true,
   imports: [
     UiTodoItemComponent,
@@ -32,9 +34,12 @@ import { FeaturePermissionsComponent } from '@demo/feature-common';
     FeaturePermissionsComponent,
     FeatureTodoResolutionComponent,
     FeatureTodoDeletePolicyProviderComponent,
+    FeatureTodoListPolicyComponent,
+    FeatureTodoListComponent,
+    TodoListComponentMapperPipe,
   ],
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
+  templateUrl: './todo-list-container.component.html',
+  styleUrls: ['./todo-list-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('hide', [
@@ -47,25 +52,7 @@ import { FeaturePermissionsComponent } from '@demo/feature-common';
     ]),
   ],
 })
-export class TodoListComponent {
-  private readonly todoList$ = this.featureTodoList.todoList$;
-
-  readonly uiTodoList$: Observable<HttpRequestState<UiTodoItem[]>> =
-    this.todoList$.pipe(
-      filterNill(),
-      map((todoListResponse) => ({
-        ...todoListResponse,
-        value: todoListResponse.value?.content.map(
-          (todo): UiTodoItem => ({
-            id: todo.id,
-            title: todo.name,
-            detailsUrl: `/todo/${todo.id}`,
-            isComplete: todo.isComplete,
-          })
-        ),
-      }))
-    );
-
+export class TodoListContainerComponent {
   trackByFn: TrackByFunction<UiTodoItem> = (index, item) => item.id;
 
   constructor(
