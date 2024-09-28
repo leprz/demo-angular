@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "local:lint:all": "nx run-many --target=lint --all"
+    "local:lint:all": "nx run-many --target=lint --all --parallel"
   },
   "private": true,
   "dependencies": {
