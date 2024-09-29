@@ -75,7 +75,9 @@ export class TodoDetailsEffects {
       run: ({payload}) => this.todoDataService.readOneById({
         id: payload.id
       }).pipe(
-        map(todo => todoDetailsActions.loadedSuccess({payload: todo}))
+        map(
+          todo => todoDetailsActions.loadedSuccess({payload: todo})
+        )
       ),
       onError: (action, error) => todoDetailsActions.loadedError({payload: error})
     })

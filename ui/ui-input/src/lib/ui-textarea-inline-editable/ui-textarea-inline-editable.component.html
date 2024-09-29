@@ -1,0 +1,28 @@
+<editable
+  class="ui-input-inline-editable"
+  [enabled]="isEnabled()"
+  (save)="onSave()"
+  (cancel)="onCancel()"
+  (modeChange)="onModeChange()"
+>
+  <ng-template viewMode>
+    @if(!control().value) {
+      <span class="ui-input-inline-editable__placeholder">description...</span>
+    } @else {
+      <span>{{ control().value }}</span>
+    }
+  </ng-template>
+  <ng-template editMode>
+    <textarea
+      [formControl]="control()"
+      [placeholder]="'description...'"
+      editableOnEscape
+      editableFocusable
+    >
+    </textarea>
+    <ui-form-errors
+      class="form-control__errors ui-input-inline-editable__errors"
+      [control]="control()"
+    ></ui-form-errors>
+  </ng-template>
+</editable>

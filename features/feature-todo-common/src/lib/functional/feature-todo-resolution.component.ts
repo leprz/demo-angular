@@ -49,13 +49,13 @@ export class FeatureTodoResolutionComponent {
   }> = toObservable(this.params).pipe(
     filterNill(),
     switchMap((payload) =>
-      this.featureTodoDelete.resolutionResult$({
+      this.featureTodoResolution.resolutionResult$({
         id: payload.id,
       }),
     ),
   );
 
-  constructor(private readonly featureTodoDelete: FeatureTodoResolutionPort) {
+  constructor(private readonly featureTodoResolution: FeatureTodoResolutionPort) {
     this.resolutionResult$.pipe(takeUntilDestroyed()).subscribe((result) => {
       this.isDisabled.set(isLoadingState(result.data ?? undefined));
     });
@@ -66,7 +66,7 @@ export class FeatureTodoResolutionComponent {
     isComplete: boolean,
   ): void {
     if (!this.isDisabled()) {
-      this.featureTodoDelete.updateResolution({ ...payload, isComplete });
+      this.featureTodoResolution.updateResolution({ ...payload, isComplete });
     }
   }
 }

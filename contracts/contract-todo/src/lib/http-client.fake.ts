@@ -12,6 +12,7 @@ let data: typeof ReadManyTodosContract.result.content = [
   {
     name: 'Todo 1',
     id: '1',
+    description: 'Description 1',
     isComplete: false,
   },
   {
@@ -33,14 +34,19 @@ function updateById(
   id: string,
   newValue: Partial<(typeof data)[number]>
 ): typeof data {
-  return data.map((todo) =>
-    todo.id === id
-      ? {
-          ...todo,
-          ...newValue,
+  return data.map((todo) => {
+    if (todo.id === id) {
+      const updatedTodo = { ...todo } as any;
+      for (const key in newValue) {
+        const nv = newValue[key as keyof typeof newValue];
+        if (nv !== undefined) {
+          updatedTodo[key] = nv;
         }
-      : todo
-  );
+      }
+      return updatedTodo;
+    }
+    return todo;
+  });
 }
 
 function addToBeginning(value: TodoResponseItem): typeof data {

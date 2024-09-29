@@ -1,21 +1,28 @@
 import { Injectable } from '@angular/core';
-import { TodoEditFormBuilder } from './todo-edit.form';
-import { todoEditActions, TodoEditState } from './+store/todo-edit.store';
+import { todoEditActions, TodoEditSelectors, TodoEditState } from './+store/todo-edit.store';
 import { Store } from '@ngrx/store';
-import { UpdateOneTodoContract } from '@demo/contracts/contract-todo';
-import { Actions } from '@ngrx/effects';
-import { FeatureTodoEditPort } from '@demo/features/feature-todo-common';
+import { UpdateOneTodoBodyParams, UpdateOneTodoPathParams, UpdateOneTodoResult } from '@demo/contracts/contract-todo';
+import { Actions, ofType } from '@ngrx/effects';
+import { FeatureTodoEditPort, todoCommonActions } from '@demo/features/feature-todo-common';
+import { Observable } from 'rxjs';
+import { HttpRequestState } from 'ngx-http-request-state';
 
 @Injectable()
 export class FeatureTodoEdit implements FeatureTodoEditPort{
   constructor(
-    public readonly formBuilder: TodoEditFormBuilder,
     private readonly store: Store<TodoEditState>,
     private readonly actions$: Actions
   ) {
   }
 
-  edit(payload: typeof UpdateOneTodoContract.pathParams & typeof UpdateOneTodoContract.bodyParams): void {
+  todoUpdateOneSuccess$: Observable<UpdateOneTodoPathParams & UpdateOneTodoBodyParams> = this.actions$.pipe(
+    ofType(todoCommonActions.todoUpdatedWithSuccess),
+  );
+
+  todoUpdateResult$: (payload: UpdateOneTodoPathParams) => Observable<HttpRequestState<UpdateOneTodoResult>>
+    = (payload) => this.store.select(TodoEditSelectors.edit(payload.id));
+
+  updateTodo(payload: UpdateOneTodoBodyParams & UpdateOneTodoPathParams): void {
     this.store.dispatch(
       todoEditActions.triggered({ payload })
     );

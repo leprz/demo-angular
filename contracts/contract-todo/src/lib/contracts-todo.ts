@@ -3,6 +3,7 @@ import {API} from "rest-contracts";
 export interface TodoResponseItem {
   id: string;
   name: string;
+  description?: string;
   isComplete: boolean;
 }
 
@@ -43,6 +44,10 @@ export const UpdateOneTodoContract =
     .Body<Partial<Omit<TodoResponseItem, 'id'| 'isComplete'>>>()
     .Returns<void>();
 
+export type UpdateOneTodoPathParams = typeof UpdateOneTodoContract.pathParams;
+export type UpdateOneTodoBodyParams = typeof UpdateOneTodoContract.bodyParams;
+export type UpdateOneTodoResult = typeof UpdateOneTodoContract.result;
+
 export const DeleteOneTodoContract =
   API
     .Delete
@@ -57,3 +62,7 @@ export const UpdateOneTodoResolutionContract =
     .PathParameters<Pick<TodoResponseItem, 'id'>>()
     .Body<Pick<TodoResponseItem, 'isComplete'>>()
     .Returns<void>();
+
+export type UpdateOneTodoResolutionPathParams = typeof UpdateOneTodoResolutionContract.pathParams;
+export type UpdateOneTodoResolutionBodyParams = typeof UpdateOneTodoResolutionContract.bodyParams;
+export type UpdateOneTodoResolutionResult = typeof UpdateOneTodoResolutionContract.result;

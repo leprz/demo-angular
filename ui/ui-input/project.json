@@ -1,16 +1,16 @@
 {
-  "name": "feature-todo-edit",
+  "name": "ui-input",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "features/feature-todo-edit/src",
-  "prefix": "feature",
+  "sourceRoot": "ui/ui-input/src",
+  "prefix": "ui",
   "projectType": "library",
-  "tags": ["type:feature"],
+  "tags": ["type:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "features/feature-todo-edit/jest.config.ts"
+        "jestConfig": "ui/ui-input/jest.config.ts"
       }
     },
     "lint": {

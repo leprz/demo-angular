@@ -1,11 +1,12 @@
-import {Injectable} from "@angular/core";
-import {Store} from "@ngrx/store";
-import {todoResolutionActions, TodoResolutionSelectors, TodoResolutionState} from "./+store/todo-resolution.store";
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { todoResolutionActions, TodoResolutionSelectors, TodoResolutionState } from './+store/todo-resolution.store';
 import {
-  FeatureTodoResolutionPort,
   FeatureTodoResolutionPayload,
+  FeatureTodoResolutionPort,
   FeatureTodoResolutionUpdatePayload
-} from "@demo/features/feature-todo-common";
+} from '@demo/features/feature-todo-common';
+import { Actions } from '@ngrx/effects';
 
 @Injectable()
 export class FeatureTodoResolutionImpl implements FeatureTodoResolutionPort {
@@ -21,6 +22,9 @@ export class FeatureTodoResolutionImpl implements FeatureTodoResolutionPort {
     }))
   }
 
-  constructor(private readonly store: Store<TodoResolutionState>) {
+  constructor(
+    private readonly store: Store<TodoResolutionState>,
+    private readonly actions$: Actions
+  ) {
   }
 }

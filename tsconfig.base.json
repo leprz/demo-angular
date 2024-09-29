@@ -44,6 +44,7 @@
       ],
       "@demo/pages/page-todo": ["pages/page-todo/src/index.ts"],
       "@demo/pages/page-todo-details": ["pages/page-todo-details/src/index.ts"],
+      "@demo/ui-input": ["ui/ui-input/src/index.ts"],
       "@demo/ui/ui-form-errors": ["ui/ui-form-errors/src/index.ts"],
       "@demo/ui/ui-loaded-content": ["ui/ui-loaded-content/src/index.ts"],
       "@demo/ui/ui-loading": ["ui/ui-loading/src/index.ts"],

@@ -1,6 +1,6 @@
-import {Observable} from "rxjs";
-import {HttpRequestState} from "ngx-http-request-state";
-import {UpdateOneTodoResolutionContract} from "@demo/contracts/contract-todo";
+import { Observable } from 'rxjs';
+import { HttpRequestState } from 'ngx-http-request-state';
+import { UpdateOneTodoResolutionContract } from '@demo/contracts/contract-todo';
 
 export type FeatureTodoResolutionPayload = typeof UpdateOneTodoResolutionContract.pathParams;
 export type FeatureTodoResolutionResult = HttpRequestState<typeof UpdateOneTodoResolutionContract.result>;

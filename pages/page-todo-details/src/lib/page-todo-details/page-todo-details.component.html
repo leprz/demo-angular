@@ -58,27 +58,37 @@
             }
           </feature-permissions>
         </div>
-        <form [formGroup]="todoFormGroup" class="todo-details__body">
-          <span>#{{ todo.id }}</span>
-          <editable
-            class="todo-details__field-name"
-            (save)="onEditableSave()"
-            (cancel)="onEditableCancel()"
-            (modeChange)="onEditableModeChange()"
-          >
-            <ng-template viewMode>
-              <span>{{ todoFormGroup.get(TodoEditForm.FIELD_TITLE)?.value }}</span>
-            </ng-template>
-            <ng-template editMode>
-              <input type="text" editableOnEnter editableFocusable editableOnEscape
-                     [formControlName]="TodoEditForm.FIELD_TITLE">
-              <ui-form-errors
-                class="form-control__errors"
-                [control]="todoFormGroup.controls[TodoEditForm.FIELD_TITLE]"
-              ></ui-form-errors>
-            </ng-template>
-          </editable>
-        </form>
+        <feature-todo-edit-policy
+          #featureTodoEditPolicy
+        />
+        <feature-todo-edit
+          [policy]="featureTodoEditPolicy.policyResult()"
+          [params]="todo"
+          #featureTodoEdit
+        >
+          <feature-todo-edit-form
+            [params]="todo"
+            (formSubmittedSuccessfully)="onUpdateSubmittedSuccessfully($event, featureTodoEdit.featureTodoEdit)"
+            #featureTodoEditForm
+          ></feature-todo-edit-form>
+          <form [formGroup]="featureTodoEditForm.formGroup" class="todo-details__form">
+            <span>#{{ todo.id }}</span>
+            <ui-input-inline-editable
+              class="todo-details__field-name"
+              [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.name]"
+              [initialValue]="todo.name"
+              (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
+              (save)="featureTodoEditForm.submit(featureTodoEditForm.keys.name)"
+            ></ui-input-inline-editable>
+            <ui-textarea-inline-editable
+              class="todo-details__field-description"
+              [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.description]"
+              [initialValue]="todo.description ?? ''"
+              (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
+              (save)="featureTodoEditForm.submit(featureTodoEditForm.keys.description)"
+            ></ui-textarea-inline-editable>
+          </form>
+        </feature-todo-edit>
       </article>
     }
   </ui-loaded-content>

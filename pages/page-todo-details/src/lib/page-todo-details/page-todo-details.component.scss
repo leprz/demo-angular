@@ -5,13 +5,13 @@ flex-direction: column;
 
 .todo-details__complete {
   .todo-details__status,
-  .todo-details__body {
+  .todo-details__form {
     background-color: var(--color-secondary-1);
   }
 }
 
 .todo-details__status,
-.todo-details__body {
+.todo-details__form {
   background-color: var(--color-primary-1);
 }
 
@@ -35,7 +35,7 @@ flex-direction: column;
   align-self: flex-end;
 }
 
-.todo-details__body {
+.todo-details__form {
   padding: 1rem;
   border-radius: 0 .5rem .5rem .5rem;
 }
@@ -43,16 +43,6 @@ flex-direction: column;
 .todo-details__field-name {
   display: block;
   padding: .5rem 0;
-  span, input {
-    font-weight: bold;
-    font-size: 2rem;
-    padding: 0;
-    border-radius: 0;
-    display: block;
-    width: 100%;
-  }
-
-  input {
-    background-color: rgba(152, 152, 152, 0.11);
-  }
+  font-weight: bold;
+  font-size: 2rem;
 }

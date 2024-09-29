@@ -1,0 +1,24 @@
+
+.ui-input-inline-editable {
+  display: block;
+  padding: .5rem 0;
+  span:hover {
+    background-color: rgba(152, 152, 152, 0.15);
+  }
+  span, input {
+    font-weight: inherit;
+    font-size: inherit;
+    padding: 0;
+    border-radius: 0;
+    display: block;
+    width: 100%;
+  }
+
+  input {
+    background-color: rgba(152, 152, 152, 0.11);
+  }
+}
+
+.ui-input-inline-editable__errors {
+  font-size: 1rem;
+}

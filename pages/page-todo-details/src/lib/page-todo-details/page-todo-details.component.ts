@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { take } from 'rxjs';
-import { filterNill, HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
+import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import {
   FeatureTodoDeleteComponent,
   FeatureTodoDeletePolicyProviderComponent,
   FeatureTodoDeletePort,
+  FeatureTodoEditComponent,
+  FeatureTodoEditPolicyComponent,
+  FeatureTodoEditPort,
   FeatureTodoResolutionComponent,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
@@ -13,26 +15,39 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FeatureTodoDetails } from '@demo/features/feature-todo-details';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UiLoadedContentComponent } from '@demo/ui/ui-loaded-content';
-import {
-  EditableComponent,
-  EditableFocusDirective,
-  EditableOnEnterDirective,
-  EditableOnEscapeDirective,
-  EditModeDirective,
-  ViewModeDirective
-} from '@ngneat/edit-in-place';
+import { EditableComponent, EditableOnEscapeDirective, ViewModeDirective } from '@ngneat/edit-in-place';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FeatureTodoEdit, TodoEditForm } from '@demo/feature-todo-edit';
+import { FeatureTodoEditFormComponent, TodoEditFormData } from '@demo/feature-todo-edit';
 import { UiFormErrorsComponent } from '@demo/ui/ui-form-errors';
 import { FeaturePermissionsComponent } from '@demo/feature-common';
 import { UiLoadingComponent } from '@demo/ui/ui-loading';
 import { PageTodoDetailsFeatureDeleteProviderComponent } from './page-todo-details-feature-delete-provider.component';
+import { UiInputInlineEditableComponent, UiTextareaInlineEditableComponent } from '@demo/ui-input';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, HasErrorPipe, IsLoadingPipe, UiLoadedContentComponent, EditableComponent,
+  imports: [
+    CommonModule,
+    HasErrorPipe,
+    IsLoadingPipe,
+    UiLoadedContentComponent,
+    EditableComponent,
     ViewModeDirective,
-    EditModeDirective, EditableOnEnterDirective, ReactiveFormsModule, EditableFocusDirective, UiFormErrorsComponent, EditableOnEscapeDirective, FeatureTodoDeleteComponent, UiTodoDeleteButtonComponent, FeaturePermissionsComponent, FeatureTodoResolutionComponent, FeatureTodoDeletePolicyProviderComponent, UiLoadingComponent, PageTodoDetailsFeatureDeleteProviderComponent
+    ReactiveFormsModule,
+    UiFormErrorsComponent,
+    EditableOnEscapeDirective,
+    FeatureTodoDeleteComponent,
+    UiTodoDeleteButtonComponent,
+    FeaturePermissionsComponent,
+    FeatureTodoResolutionComponent,
+    FeatureTodoDeletePolicyProviderComponent,
+    UiLoadingComponent,
+    PageTodoDetailsFeatureDeleteProviderComponent,
+    FeatureTodoEditComponent,
+    FeatureTodoEditPolicyComponent,
+    FeatureTodoEditFormComponent,
+    UiInputInlineEditableComponent,
+    UiTextareaInlineEditableComponent
   ],
   templateUrl: './page-todo-details.component.html',
   styleUrls: ['./page-todo-details.component.scss'],
@@ -47,36 +62,13 @@ export class PageTodoDetailsComponent {
     id: this.id
   });
 
-  readonly todoEditForm: TodoEditForm = this.featureTodoEdit.formBuilder.create();
-
-  readonly todoFormGroup: FormGroup = this.todoEditForm.formGroup;
-
-  readonly TodoEditForm = TodoEditForm;
-
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly featureTodoDelete: FeatureTodoDeletePort,
     private readonly featureTodoDetails: FeatureTodoDetails,
-    private readonly featureTodoEdit: FeatureTodoEdit
   ) {
     featureTodoDetails.loadTodo(this.id);
-
-    featureTodoDetails.events$(
-      this.id
-    ).pipe(
-      takeUntilDestroyed()
-    ).subscribe();
-
-    this.todoDetailsResult$.pipe(
-      takeUntilDestroyed(),
-      filterNill()
-    ).subscribe(todo => {
-      const value = todo.value?.content;
-      if (value) {
-        this.todoEditForm.setName(value.name);
-      }
-    });
 
     this.onDeleteSuccess$.pipe(
       takeUntilDestroyed()
@@ -86,37 +78,20 @@ export class PageTodoDetailsComponent {
       });
     });
 
-    this.todoEditForm.successFullySubmitted$.pipe(
-      takeUntilDestroyed()
-    ).subscribe(() => {
-      if (this.todoEditForm.valid) {
-        this.featureTodoEdit.edit({
-          id: this.id,
-          name: this.todoEditForm.value.title
-        });
-      }
+    this.featureTodoDetails.events$(this.id).pipe(
+      takeUntilDestroyed(),
+    ).subscribe();
+  }
+  onEditableModeChange(formGroup: FormGroup): void {
+    formGroup.markAllAsTouched();
+    formGroup.markAsDirty();
+  }
+
+  onUpdateSubmittedSuccessfully(data: TodoEditFormData, featureTodoEdit: FeatureTodoEditPort) {
+    featureTodoEdit.updateTodo({
+      id: this.id,
+      name: data.name,
+      description: data.description
     });
-  }
-
-  onEditableSave(): void {
-    this.todoEditForm.submit();
-  }
-
-  onEditableCancel(): void {
-    this.todoDetailsResult$.pipe(
-      take(1),
-      filterNill()
-    ).subscribe(todo => {
-      const value = todo.value?.content;
-      if (value) {
-        this.todoEditForm.setName(value.name);
-      }
-    });
-  }
-
-  onEditableModeChange(): void {
-    console.log('mode changed');
-    this.todoFormGroup.markAllAsTouched();
-    this.todoFormGroup.markAsDirty();
   }
 }

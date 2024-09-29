@@ -4,7 +4,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { errorState, HttpRequestState, loadedState, loadingState } from 'ngx-http-request-state';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { TodoDataService, UpdateOneTodoContract } from '@demo/contracts/contract-todo';
+import {
+  TodoDataService,
+  UpdateOneTodoBodyParams,
+  UpdateOneTodoContract,
+  UpdateOneTodoPathParams
+} from '@demo/contracts/contract-todo';
 import { fetch } from '@ngrx/router-store/data-persistence';
 import { map } from 'rxjs';
 import { todoCommonActions } from '@demo/features/feature-todo-common';
@@ -12,9 +17,9 @@ import { todoCommonActions } from '@demo/features/feature-todo-common';
 export const todoEditActions = createActionGroup({
   source: 'todo edit',
   events: {
-    'triggered': props<ActionPayload<typeof UpdateOneTodoContract.pathParams & typeof UpdateOneTodoContract.bodyParams>>(),
+    'triggered': props<ActionPayload<UpdateOneTodoBodyParams & UpdateOneTodoPathParams>>(),
     'edited with error': props<ActionPayload<{
-      params: typeof UpdateOneTodoContract.pathParams,
+      params: UpdateOneTodoPathParams,
       error: HttpErrorResponse
     }>>(),
   }
