@@ -32,6 +32,8 @@ export const CreateOneTodoContract =
     .Body<TodoResponseItem>()
     .Returns<void>();
 
+export type CreateOneTodoBodyParams = typeof CreateOneTodoContract.bodyParams;
+export type CreateOneTodoResult = typeof CreateOneTodoContract.result;
 
 export const UpdateOneTodoContract =
   API

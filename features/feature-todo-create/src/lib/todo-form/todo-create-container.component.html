@@ -1,0 +1,37 @@
+<feature-todo-create-policy
+  #featureTodoCreatePolicy
+/>
+<feature-todo-create
+  [policy]="featureTodoCreatePolicy.policyResult()"
+  #featureTodoCreate
+>
+  <feature-todo-create-form
+    #featureTodoCreateForm
+    (formSubmittedSuccessfully)="onFormSubmit($event, featureTodoCreate.featureTodoCreate)"
+  />
+  <form [formGroup]="featureTodoCreateForm.formGroup" (submit)="featureTodoCreateForm.submit()">
+    <div class="form-control">
+      <input
+        class="form-control__input"
+        type="text"
+        [formControlName]="featureTodoCreateForm.keys.name"
+        (blur)="onInputBlur(featureTodoCreateForm.formGroup.controls[featureTodoCreateForm.keys.name])"
+      />
+      <button
+        class="form-control__submit btn-icon"
+        type="submit"
+        [disabled]="
+        featureTodoCreatePolicy.policyResult().isDisabled
+        || (featureTodoCreate.createResult$ | async | isLoading)
+      "
+      >
+        <i class="icon-plus"></i>
+      </button>
+      <ui-form-errors
+        class="form-control__errors"
+        [control]="featureTodoCreateForm.formGroup.controls[featureTodoCreateForm.keys.name]"
+      ></ui-form-errors>
+    </div>
+  </form>
+</feature-todo-create>
+

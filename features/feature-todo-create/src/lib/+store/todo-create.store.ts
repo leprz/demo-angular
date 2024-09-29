@@ -50,7 +50,7 @@ export const todoCreateFeature = createFeature({
 });
 
 export class TodoCreateSelectors {
-  static createTodoForm = (state: TodoCreateState) => state.createTodoForm;
+  static createTodoForm = (state: TodoCreateState) => (state.createTodoForm);
 }
 
 @Injectable({
@@ -64,7 +64,9 @@ export class TodoCreateEffects {
         run: ({ payload }) =>
           this.todoDataService
             .createOne(payload)
-            .pipe(map(() => todoCommonActions.todoCreatedWithSuccess())),
+            .pipe(map(() => todoCommonActions.todoCreatedWithSuccess({
+              payload
+            }))),
         onError: (action, error) =>
           todoCreateActions.createTodoFormError({ payload: error }),
       })
