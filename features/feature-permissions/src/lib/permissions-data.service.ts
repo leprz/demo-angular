@@ -1,7 +1,7 @@
 import {
   ContractsPermissionsDataService,
-  GetPermissionsResultObjectMother,
   GetPermissionsResult,
+  GetPermissionsResultObjectMother
 } from '@demo/contracts/contract-common';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';

@@ -1,22 +1,33 @@
-@if (todoDetailsResult$ | async; as details) {
-  <ui-loaded-content
-    [content]="details">
-    @if (details.value?.content; as todo) {
-      <article
-        class="todo-details" [ngClass]="{'todo-details__complete': todo.isComplete}">
-        <div class="todo-details__header">
+<feature-todo-details-policy
+  #todoDetailsPolicy
+/>
+@if (todoDetailsPolicy.policyResult().isHidden) {
+  <h2>Permissions denied</h2>
+}
+<feature-todo-details
+  [policy]="todoDetailsPolicy.policyResult()"
+  #todoDetails
+>
+  @if (todoDetails.todoDetails$ | async; as details) {
+    <ui-loaded-content
+      [content]="details"
+    >
+      @if (details.value?.content; as todo) {
+        <article
+          class="todo-details" [ngClass]="{'todo-details__complete': todo.isComplete}">
+          <div class="todo-details__header">
           <span class="todo-details__status">
             {{ todo.isComplete ? 'Done' : 'Todo' }}
           </span>
-          <feature-permissions
-            class="todo-details__actions"
-            #featurePermissionsComponent>
-            @if (featurePermissionsComponent.permissions$ | async; as permissions) {
-              <feature-todo-resolution
-                [params]="todo"
-                [permissions]="permissions.value ?? []"
-                #featureResolution
-              >
+            <feature-permissions
+              class="todo-details__actions"
+              #featurePermissionsComponent>
+              @if (featurePermissionsComponent.permissions$ | async; as permissions) {
+                <feature-todo-resolution
+                  [params]="todo"
+                  [permissions]="permissions.value ?? []"
+                  #featureResolution
+                >
                  <span
                    class="todo-details__action todo-details__action--resolution">
                   @if (featureResolution.resolutionResult$ | async; as resolutionResult) {
@@ -31,8 +42,8 @@
                     </button>
                   }
                 </span>
-              </feature-todo-resolution>
-<!--              <page-todo-details-feature-delete-provider>-->
+                </feature-todo-resolution>
+                <!--              <page-todo-details-feature-delete-provider>-->
                 <feature-todo-delete-policy #deletePolicyProvider>
                   @defer (when !deletePolicyProvider.policyResult().isHidden) {
                     <feature-todo-delete
@@ -54,43 +65,43 @@
                     </feature-todo-delete>
                   }
                 </feature-todo-delete-policy>
-<!--              </page-todo-details-feature-delete-provider>-->
-            }
-          </feature-permissions>
-        </div>
-        <feature-todo-edit-policy
-          #featureTodoEditPolicy
-        />
-        <feature-todo-edit
-          [policy]="featureTodoEditPolicy.policyResult()"
-          [params]="todo"
-          #featureTodoEdit
-        >
-          <feature-todo-edit-form
+                <!--              </page-todo-details-feature-delete-provider>-->
+              }
+            </feature-permissions>
+          </div>
+          <feature-todo-edit-policy
+            #featureTodoEditPolicy
+          />
+          <feature-todo-edit
+            [policy]="featureTodoEditPolicy.policyResult()"
             [params]="todo"
-            (formSubmittedSuccessfully)="onUpdateSubmittedSuccessfully($event, featureTodoEdit.featureTodoEdit)"
-            #featureTodoEditForm
-          ></feature-todo-edit-form>
-          <form [formGroup]="featureTodoEditForm.formGroup" class="todo-details__form">
-            <span>#{{ todo.id }}</span>
-            <ui-input-inline-editable
-              class="todo-details__field-name"
-              [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.name]"
-              [initialValue]="todo.name"
-              (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
-              (save)="featureTodoEditForm.submit(featureTodoEditForm.keys.name)"
-            ></ui-input-inline-editable>
-            <ui-textarea-inline-editable
-              class="todo-details__field-description"
-              [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.description]"
-              [initialValue]="todo.description ?? ''"
-              (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
-              (save)="featureTodoEditForm.submit(featureTodoEditForm.keys.description)"
-            ></ui-textarea-inline-editable>
-          </form>
-        </feature-todo-edit>
-      </article>
-    }
-  </ui-loaded-content>
-}
-
+            #featureTodoEdit
+          >
+            <feature-todo-edit-form
+              [params]="todo"
+              (formSubmittedSuccessfully)="onUpdateSubmittedSuccessfully($event, featureTodoEdit.featureTodoEdit)"
+              #featureTodoEditForm
+            ></feature-todo-edit-form>
+            <form [formGroup]="featureTodoEditForm.formGroup" class="todo-details__form">
+              <span>#{{ todo.id }}</span>
+              <ui-input-inline-editable
+                class="todo-details__field-name"
+                [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.name]"
+                [initialValue]="todo.name"
+                (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
+                (save)="featureTodoEditForm.submit(featureTodoEditForm.keys.name)"
+              ></ui-input-inline-editable>
+              <ui-textarea-inline-editable
+                class="todo-details__field-description"
+                [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.description]"
+                [initialValue]="todo.description ?? ''"
+                (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
+                (save)="featureTodoEditForm.submit(featureTodoEditForm.keys.description)"
+              ></ui-textarea-inline-editable>
+            </form>
+          </feature-todo-edit>
+        </article>
+      }
+    </ui-loaded-content>
+  }
+</feature-todo-details>

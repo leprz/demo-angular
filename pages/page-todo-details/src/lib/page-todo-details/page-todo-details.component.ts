@@ -4,7 +4,7 @@ import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import {
   FeatureTodoDeleteComponent,
   FeatureTodoDeletePolicyProviderComponent,
-  FeatureTodoDeletePort,
+  FeatureTodoDeletePort, FeatureTodoDetailsComponent, FeatureTodoDetailsPolicyComponent,
   FeatureTodoEditComponent,
   FeatureTodoEditPolicyComponent,
   FeatureTodoEditPort,
@@ -47,16 +47,16 @@ import { UiInputInlineEditableComponent, UiTextareaInlineEditableComponent } fro
     FeatureTodoEditPolicyComponent,
     FeatureTodoEditFormComponent,
     UiInputInlineEditableComponent,
-    UiTextareaInlineEditableComponent
+    UiTextareaInlineEditableComponent,
+    FeatureTodoDetailsPolicyComponent,
+    FeatureTodoDetailsComponent
   ],
   templateUrl: './page-todo-details.component.html',
   styleUrls: ['./page-todo-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageTodoDetailsComponent {
-  readonly id = this.activatedRoute.snapshot.params['id'];
-
-  readonly todoDetailsResult$ = this.featureTodoDetails.todo$;
+  readonly id: string = this.activatedRoute.snapshot.params['id'];
 
   readonly onDeleteSuccess$ = this.featureTodoDelete.deleteOneSuccess$({
     id: this.id
@@ -68,7 +68,9 @@ export class PageTodoDetailsComponent {
     private readonly featureTodoDelete: FeatureTodoDeletePort,
     private readonly featureTodoDetails: FeatureTodoDetails,
   ) {
-    featureTodoDetails.loadTodo(this.id);
+    featureTodoDetails.loadTodo({
+      id: this.id
+    });
 
     this.onDeleteSuccess$.pipe(
       takeUntilDestroyed()
@@ -82,6 +84,7 @@ export class PageTodoDetailsComponent {
       takeUntilDestroyed(),
     ).subscribe();
   }
+
   onEditableModeChange(formGroup: FormGroup): void {
     formGroup.markAllAsTouched();
     formGroup.markAsDirty();

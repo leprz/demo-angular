@@ -25,7 +25,8 @@ export const ReadOneTodoContract =
     .Returns<{
       content: TodoResponseItem;
     }>();
-
+export type ReadOneTodoPathParams = typeof ReadOneTodoContract.pathParams;
+export type ReadOneTodoResult = typeof ReadOneTodoContract.result;
 export const CreateOneTodoContract =
   API
     .Post

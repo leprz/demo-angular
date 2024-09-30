@@ -1,6 +1,7 @@
 export * from './lib/todo-common.actions';
 export * from './lib/todo-delete';
 export * from './lib/todo-list';
+export * from './lib/todo-details';
 export * from './lib/todo-form/todo-create';
 export * from './lib/todo-form/todo-edit';
 export * from './lib/feature-todo-resolution.port';
