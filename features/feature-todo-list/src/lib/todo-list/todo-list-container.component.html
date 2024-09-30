@@ -12,10 +12,10 @@
         >
           <div class="todo-list">
             @if (todoList.value?.content?.length ?? 0 > 0) {
-              @for (todoItem of todoList.value | mapTodoListToUi; track trackByFn($index, todoItem)) {
+              @for (todoItem of todoList.value?.content; track trackByResponseFn($index, todoItem)) {
                 <ui-todo-item
                   class="todo-list__item"
-                  [todo]="todoItem"
+                  [todo]="todoItem | mapReadManyTodosResultItemToUiTodoItem"
                   [fade]="todoItem.isComplete"
                   @hide
                 >
@@ -35,6 +35,7 @@
                       </feature-todo-resolution>
                     }
                   </feature-permissions>
+
                   <feature-todo-delete-policy
                     todo-item-suffix
                     #featureTodoDeletePolicy

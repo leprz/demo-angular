@@ -1,14 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiTodoItem } from './ui-todo-item.interface';
 import { RouterLink } from '@angular/router';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'ui-todo-item',
@@ -39,6 +33,7 @@ import {
   ],
 })
 export class UiTodoItemComponent {
-  @Input({ required: true }) todo!: UiTodoItem;
-  @Input() fade = false;
+  readonly todo = input.required<UiTodoItem>();
+  readonly fade = input<boolean>(false);
+  isContainerOnly = input<boolean>(false);
 }

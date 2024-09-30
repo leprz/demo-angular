@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 
 import { FeatureTodoList } from '../feature-todo-list';
-import { UiTodoItem, UiTodoItemComponent } from '@demo/ui/ui-todo-item';
+import { UiTodoItemComponent } from '@demo/ui/ui-todo-item';
 import { UiLoadedContentComponent } from '@demo/ui/ui-loaded-content';
 import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -17,7 +17,10 @@ import { TodoListResolutionComponent } from './todo-list-resolution.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { FeaturePermissionsComponent } from '@demo/feature-common';
-import { TodoListComponentMapperPipe } from './todo-list.component.mapper.pipe';
+import { MapReadManyTodosResultItemToUiTodoItemPipe } from './todo-list.component.mapper.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UiInputInlineEditableComponent, UiTextareaInlineEditableComponent } from '@demo/ui-input';
+import { ReadManyTodosContract } from '@demo/contracts/contract-todo';
 
 @Component({
   selector: 'feature-todo-list-container',
@@ -36,7 +39,10 @@ import { TodoListComponentMapperPipe } from './todo-list.component.mapper.pipe';
     FeatureTodoDeletePolicyProviderComponent,
     FeatureTodoListPolicyComponent,
     FeatureTodoListComponent,
-    TodoListComponentMapperPipe,
+    MapReadManyTodosResultItemToUiTodoItemPipe,
+    ReactiveFormsModule,
+    UiInputInlineEditableComponent,
+    UiTextareaInlineEditableComponent
   ],
   templateUrl: './todo-list-container.component.html',
   styleUrls: ['./todo-list-container.component.scss'],
@@ -53,10 +59,10 @@ import { TodoListComponentMapperPipe } from './todo-list.component.mapper.pipe';
   ],
 })
 export class TodoListContainerComponent {
-  trackByFn: TrackByFunction<UiTodoItem> = (index, item) => item.id;
+  trackByResponseFn: TrackByFunction<typeof ReadManyTodosContract.result.content[number]> = (_, item) => item.id;
 
   constructor(
-    private readonly featureTodoList: FeatureTodoList,
+    readonly featureTodoList: FeatureTodoList,
   ) {
       featureTodoList.loadTodoList();
 

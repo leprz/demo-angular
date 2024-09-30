@@ -21,7 +21,7 @@ export class FeatureTodoList implements FeatureTodoListPort{
     ofType(
       todoCommonActions.todoDeletedWithSuccess,
       todoCommonActions.todoResolutionUpdatedWithSuccess,
-      todoCommonActions.todoCreatedWithSuccess
+      todoCommonActions.todoCreatedWithSuccess,
     ),
     tap(() => {
       this.store.dispatch(todoListActions.silentReloadRequested())
