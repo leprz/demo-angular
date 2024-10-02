@@ -87,7 +87,7 @@
       "options": {
         "port": 4400,
         "configDir": "apps/demo/.storybook",
-        "buildTarget": "demo:build",
+        "browserTarget": "demo:build",
         "compodoc": false
       },
       "configurations": {

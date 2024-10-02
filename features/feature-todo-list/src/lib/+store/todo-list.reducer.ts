@@ -1,9 +1,9 @@
-import {createFeature, createReducer, on} from "@ngrx/store";
-import {errorState, HttpRequestState, loadedState, loadingState} from "ngx-http-request-state";
-import {todoListActions} from "./todo-list.actions";
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { errorState, HttpRequestState, loadedState, loadingState } from 'ngx-http-request-state';
+import { todoListActions } from './todo-list.actions';
 
-import {HttpRequestsStateIdle} from "@demo/utils/utils-data-service";
-import {ReadManyTodosContract} from "@demo/contracts/contract-todo";
+import { HttpRequestsStateIdle } from '@demo/utils/utils-data-service';
+import { ReadManyTodosContract } from '@demo/contracts/contract-todo';
 
 export interface TodoListState {
   todoList: HttpRequestState<typeof ReadManyTodosContract.result>

@@ -1,4 +1,4 @@
-import {HttpRequestState} from "ngx-http-request-state";
+import { HttpRequestState, LoadingState } from 'ngx-http-request-state';
 import {Pipe, PipeTransform} from "@angular/core";
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -6,10 +6,10 @@ export interface ActionPayload<T> {
   payload: T
 }
 
-export const HttpRequestsStateIdle = {
+export const HttpRequestsStateIdle: LoadingState<undefined> = {
   value: undefined,
   error: undefined,
-  isLoading: false,
+  isLoading: true,
 };
 
 @Pipe({

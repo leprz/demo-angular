@@ -45,6 +45,6 @@ export const WithSuffix: Story = {
   },
   render: (args) => ({
     props: args,
-    template: `<ui-todo-item [todo]="todo"><button todo-item-sufix class="btn-icon">X</button></ui-todo-item>`,
+    template: `<ui-todo-item [todo]="todo"><button todo-item-suffix class="btn-icon">X</button></ui-todo-item>`,
   })
 }
