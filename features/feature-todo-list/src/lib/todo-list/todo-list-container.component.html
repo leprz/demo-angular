@@ -19,22 +19,17 @@
                   [fade]="todoItem.isComplete"
                   @hide
                 >
-                  <feature-permissions
+                  <feature-todo-resolution
                     todo-item-prefix
-                    #featurePermissions>
-                    @if (featurePermissions.permissions$ | async; as permissions) {
-                      <feature-todo-resolution
-                        [params]="todoItem"
-                        [permissions]="permissions.value ?? []"
-                        #todoResolution
-                      >
-                        <feature-todo-list-resolution
-                          (resolutionChanged)="todoResolution.updateResolution(todoItem, $event)"
-                          [params]="todoItem">
-                        </feature-todo-list-resolution>
-                      </feature-todo-resolution>
-                    }
-                  </feature-permissions>
+                    [params]="todoItem"
+                    #featureTodoResolution
+                  >
+                    <feature-todo-list-resolution
+                      [isDisabled]="featureTodoResolution.policy().isDisabled"
+                      (resolutionChanged)="featureTodoResolution.toggleResolution(todoItem)"
+                      [params]="todoItem">
+                    </feature-todo-list-resolution>
+                  </feature-todo-resolution>
 
                   <feature-todo-delete-policy
                     todo-item-suffix

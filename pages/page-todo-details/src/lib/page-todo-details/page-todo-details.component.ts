@@ -4,11 +4,14 @@ import { HasErrorPipe, IsLoadingPipe } from '@demo/utils/utils-data-service';
 import {
   FeatureTodoDeleteComponent,
   FeatureTodoDeletePolicyProviderComponent,
-  FeatureTodoDeletePort, FeatureTodoDetailsComponent, FeatureTodoDetailsPolicyComponent,
+  FeatureTodoDeletePort,
+  FeatureTodoDetailsComponent,
+  FeatureTodoDetailsPolicyComponent,
   FeatureTodoEditComponent,
   FeatureTodoEditPolicyComponent,
   FeatureTodoEditPort,
   FeatureTodoResolutionComponent,
+  FeatureTodoResolutionPolicyProviderComponent,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -49,7 +52,8 @@ import { UiInputInlineEditableComponent, UiTextareaInlineEditableComponent } fro
     UiInputInlineEditableComponent,
     UiTextareaInlineEditableComponent,
     FeatureTodoDetailsPolicyComponent,
-    FeatureTodoDetailsComponent
+    FeatureTodoDetailsComponent,
+    FeatureTodoResolutionPolicyProviderComponent
   ],
   templateUrl: './page-todo-details.component.html',
   styleUrls: ['./page-todo-details.component.scss'],
@@ -66,7 +70,7 @@ export class PageTodoDetailsComponent {
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly featureTodoDelete: FeatureTodoDeletePort,
-    private readonly featureTodoDetails: FeatureTodoDetails,
+    private readonly featureTodoDetails: FeatureTodoDetails
   ) {
     featureTodoDetails.loadTodo({
       id: this.id
@@ -81,7 +85,7 @@ export class PageTodoDetailsComponent {
     });
 
     this.featureTodoDetails.events$(this.id).pipe(
-      takeUntilDestroyed(),
+      takeUntilDestroyed()
     ).subscribe();
   }
 

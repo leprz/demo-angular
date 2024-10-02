@@ -2,17 +2,17 @@ import { GetPermissionsResult, GetPermissionsResultUtils } from '@demo/contracts
 import { TodoPermissionsResultActions, TodoPermissionsResultKeys } from '@demo/contracts/contract-todo';
 import { PolicyResult } from '@demo/feature-common';
 import { Injectable } from '@angular/core';
-import { FeatureTodoDetailsPolicyPort } from '@demo/features/feature-todo-common';
+import { FeatureTodoResolutionPolicyPort } from '@demo/features/feature-todo-common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FeatureTodoDetailsPolicy implements FeatureTodoDetailsPolicyPort {
+export class FeatureTodoResolutionPolicy implements FeatureTodoResolutionPolicyPort {
   check(permissions: GetPermissionsResult): PolicyResult {
     const isAllowed = GetPermissionsResultUtils.isAllowed(
       permissions ?? [],
       TodoPermissionsResultKeys.todos,
-      TodoPermissionsResultActions.read
+      TodoPermissionsResultActions.write
     );
     return {
       isHidden: !isAllowed,

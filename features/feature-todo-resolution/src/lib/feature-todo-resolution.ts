@@ -8,8 +8,10 @@ import {
 } from '@demo/features/feature-todo-common';
 import { Actions } from '@ngrx/effects';
 
-@Injectable()
-export class FeatureTodoResolutionImpl implements FeatureTodoResolutionPort {
+@Injectable({
+  providedIn: 'root'
+})
+export class FeatureTodoResolution implements FeatureTodoResolutionPort {
   readonly resolutionResult$ = (payload: FeatureTodoResolutionPayload) =>
     this.store.select(TodoResolutionSelectors.resolution(payload.id));
 

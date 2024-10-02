@@ -21,18 +21,18 @@ export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { 
         @if (resolutionResult$ | async; as resolutionResult) {
           @if (resolutionResult.data | hasError) {
             <span [title]="resolutionResult.data.error.message"
-            class="warning icon-exclamation"></span>
+                  class="warning icon-exclamation"></span>
           }
           <input
             type="checkbox"
-            [disabled]="isDisabled()"
+            [disabled]="isLoading() || isDisabled()"
             [checked]="params.isComplete"
             (change)="onResolutionChange($event, params)"
           >
         }
       </span>
     }
-    `,
+  `,
   styles: [`
     .todo-list-resolution {
       display: flex;
@@ -52,7 +52,9 @@ export type FeatureTodoListResolutionParams = FeatureTodoResolutionPayload  & { 
 })
 export class TodoListResolutionComponent {
   readonly params = input.required<FeatureTodoResolutionUpdatePayload>();
-  readonly isDisabled = signal<boolean>(false);
+  readonly isDisabled = input<boolean>(false);
+  readonly isLoading = signal<boolean>(false);
+
   readonly resolutionChanged = output<boolean>();
 
   readonly resolutionResult$: Observable<{ data: FeatureTodoResolutionResult | null }> = toObservable(this.params).pipe(
@@ -63,7 +65,7 @@ export class TodoListResolutionComponent {
   constructor(
     private readonly featureTodoResolution: FeatureTodoResolutionPort) {
       this.resolutionResult$.pipe(takeUntilDestroyed()).subscribe((result) => {
-        this.isDisabled.set(isLoadingState(result.data ?? undefined));
+        this.isLoading.set(isLoadingState(result.data ?? undefined));
       });
     }
 

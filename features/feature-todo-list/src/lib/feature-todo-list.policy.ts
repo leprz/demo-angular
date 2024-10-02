@@ -13,7 +13,7 @@ export class FeatureTodoListPolicy implements FeatureTodoListPolicyPort {
       isHidden: !GetPermissionsResultUtils.isAllowed(
         permissions,
         TodoPermissionsResultKeys.todos,
-        TodoPermissionsResultActions.view
+        TodoPermissionsResultActions.read
       ),
       isDisabled: false,
     }

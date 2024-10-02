@@ -11,6 +11,7 @@ import {
   FeatureTodoListComponent,
   FeatureTodoListPolicyComponent,
   FeatureTodoResolutionComponent,
+  FeatureTodoResolutionPolicyProviderComponent,
   UiTodoDeleteButtonComponent
 } from '@demo/features/feature-todo-common';
 import { TodoListResolutionComponent } from './todo-list-resolution.component';
@@ -42,7 +43,8 @@ import { ReadManyTodosContract } from '@demo/contracts/contract-todo';
     MapReadManyTodosResultItemToUiTodoItemPipe,
     ReactiveFormsModule,
     UiInputInlineEditableComponent,
-    UiTextareaInlineEditableComponent
+    UiTextareaInlineEditableComponent,
+    FeatureTodoResolutionPolicyProviderComponent
   ],
   templateUrl: './todo-list-container.component.html',
   styleUrls: ['./todo-list-container.component.scss'],

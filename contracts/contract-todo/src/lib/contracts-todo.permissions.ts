@@ -3,7 +3,6 @@ export enum TodoPermissionsResultKeys {
 }
 
 export enum TodoPermissionsResultActions {
-  view = 'view',
   read = 'read',
   write = 'write',
   delete = 'delete',

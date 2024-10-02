@@ -47,7 +47,7 @@ export class FeatureTodoEditFormComponent {
   constructor() {
     effect(() => {
       this.formGroup.controls[this.keys.name].setValue(this.params().name);
-      // this.formGroup.controls[this.keys.description].setValue(this.params().);
+      this.formGroup.controls[this.keys.description].setValue(this.params().description);
     });
   }
 }
