@@ -1,5 +1,6 @@
 <editable
   class="ui-input-inline-editable"
+  [ngClass]="{ 'ui-input-inline-editable--is-enabled': isEnabled() }"
   [enabled]="isEnabled()"
   (save)="onSave()"
   (cancel)="onCancel()"

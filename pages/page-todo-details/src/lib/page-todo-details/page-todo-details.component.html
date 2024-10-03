@@ -82,6 +82,7 @@
               <span>#{{ todo.id }}</span>
               <ui-input-inline-editable
                 class="todo-details__field-name"
+                [isEnabled]="!featureTodoEditPolicy.policyResult().isDisabled"
                 [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.name]"
                 [initialValue]="todo.name"
                 (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
@@ -89,6 +90,7 @@
               ></ui-input-inline-editable>
               <ui-textarea-inline-editable
                 class="todo-details__field-description"
+                [isEnabled]="!featureTodoEditPolicy.policyResult().isDisabled"
                 [control]="featureTodoEditForm.formGroup.controls[featureTodoEditForm.keys.description]"
                 [initialValue]="todo.description ?? ''"
                 (modeChange)="onEditableModeChange(featureTodoEditForm.formGroup)"
