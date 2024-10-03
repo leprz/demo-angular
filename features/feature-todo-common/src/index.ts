@@ -8,3 +8,5 @@ export * from './lib/todo-resolution';
 export * from './lib/todo-form/feature-todo-form-controls-builder.service';
 
 export * from './lib/ui';
+
+export * from './lib/data-service/todo-data-service.providers';

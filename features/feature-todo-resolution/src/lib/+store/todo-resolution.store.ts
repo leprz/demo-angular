@@ -1,18 +1,18 @@
-import {createActionGroup, createFeatureSelector, createReducer, createSelector, on, props} from "@ngrx/store";
-import {TodoDataService} from "@demo/contracts/contract-todo";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ActionPayload} from "@demo/utils/utils-data-service";
-import {errorState, loadedState, loadingState} from "ngx-http-request-state";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {fetch} from "@ngrx/router-store/data-persistence";
-import {map} from "rxjs";
-import {Injectable} from "@angular/core";
+import { createActionGroup, createFeatureSelector, createReducer, createSelector, on, props } from '@ngrx/store';
+import { TodoDataServicePort } from '@demo/contracts/contract-todo';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActionPayload } from '@demo/utils/utils-data-service';
+import { errorState, loadedState, loadingState } from 'ngx-http-request-state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { fetch } from '@ngrx/router-store/data-persistence';
+import { map } from 'rxjs';
+import { Injectable } from '@angular/core';
 import {
-  todoCommonActions,
   FeatureTodoResolutionPayload,
   FeatureTodoResolutionResult,
-  FeatureTodoResolutionUpdatePayload
-} from "@demo/features/feature-todo-common";
+  FeatureTodoResolutionUpdatePayload,
+  todoCommonActions
+} from '@demo/features/feature-todo-common';
 
 export const todoResolutionActions = createActionGroup({
   source: 'todo resolution',
@@ -89,7 +89,7 @@ export class TodoResolutionEffects {
     ofType(todoResolutionActions.triggered),
     fetch({
       run: ({payload}) => {
-        return this.todoDataService.updateResolution(
+        return this.todoDataService.updateOneResolution(
           {
             id: payload.id
           },
@@ -115,7 +115,7 @@ export class TodoResolutionEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly todoDataService: TodoDataService
+    private readonly todoDataService: TodoDataServicePort
   ) {
   }
 }

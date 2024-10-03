@@ -5,17 +5,16 @@ import {
   createReducer,
   createSelector,
   on,
-  props,
-  Store
-} from "@ngrx/store";
-import {errorState, HttpRequestState, loadedState, loadingState} from "ngx-http-request-state";
-import {ReadOneTodoContract, TodoDataService} from "@demo/contracts/contract-todo";
-import {ActionPayload, HttpRequestsStateIdle} from "@demo/utils/utils-data-service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {Injectable} from "@angular/core";
-import {fetch} from "@nx/angular";
-import {map} from "rxjs";
+  props
+} from '@ngrx/store';
+import { errorState, HttpRequestState, loadedState, loadingState } from 'ngx-http-request-state';
+import { ReadOneTodoContract, TodoDataServicePort } from '@demo/contracts/contract-todo';
+import { ActionPayload, HttpRequestsStateIdle } from '@demo/utils/utils-data-service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Injectable } from '@angular/core';
+import { fetch } from '@nx/angular';
+import { map } from 'rxjs';
 
 const TODO_DETAILS_FEATURE_KEY = 'todoDetails';
 
@@ -97,7 +96,6 @@ export class TodoDetailsEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly store: Store<TodoDetailsState>,
-    private readonly todoDataService: TodoDataService) {
+    private readonly todoDataService: TodoDataServicePort) {
   }
 }

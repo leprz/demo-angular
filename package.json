@@ -23,6 +23,7 @@
     "@nx/angular": "19.8.3",
     "@types/uuid": "^10.0.0",
     "@valueadd/typed-urls": "^5.0.1",
+    "dexie": "^4.0.8",
     "ngx-http-request-state": "^3.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

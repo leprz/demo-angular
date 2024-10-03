@@ -1,9 +1,9 @@
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {todoListActions} from "./todo-list.actions";
-import {fetch} from "@ngrx/router-store/data-persistence";
-import {TodoDataService} from "@demo/contracts/contract-todo";
-import {map} from "rxjs";
-import {Injectable} from "@angular/core";
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { todoListActions } from './todo-list.actions';
+import { fetch } from '@ngrx/router-store/data-persistence';
+import { TodoDataServicePort } from '@demo/contracts/contract-todo';
+import { map } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TodoListEffects {
@@ -14,11 +14,11 @@ export class TodoListEffects {
       ),
       fetch({
         run: () => {
-          return this.todoListDataService.readManyTodos().pipe(
+          return this.todoListDataService.readMany().pipe(
             map(result => todoListActions.loadedWithSuccess({payload: result}))
           );
         },
-        onError: (action, error) => {
+        onError: (_, error) => {
           return todoListActions.loadedWithError({payload: error});
         }
       })
@@ -27,7 +27,7 @@ export class TodoListEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly todoListDataService: TodoDataService
+    private readonly todoListDataService: TodoDataServicePort
   ) {
   }
 }

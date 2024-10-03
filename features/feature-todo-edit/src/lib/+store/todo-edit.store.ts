@@ -5,7 +5,7 @@ import { errorState, HttpRequestState, loadedState, loadingState } from 'ngx-htt
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  TodoDataService,
+  TodoDataServicePort,
   UpdateOneTodoBodyParams,
   UpdateOneTodoContract,
   UpdateOneTodoPathParams
@@ -86,7 +86,7 @@ export class TodoEditEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly todoDataService: TodoDataService
+    private readonly todoDataService: TodoDataServicePort
   ) {
   }
 }

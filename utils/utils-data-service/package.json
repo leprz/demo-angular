@@ -2,11 +2,11 @@
   "name": "@demo/utils/utils-data-service",
   "version": "0.0.1",
   "dependencies": {
-    "@angular/common": "~18.0.2",
-    "@angular/core": "~18.0.2",
+    "@angular/common": "18.2.6",
+    "@angular/core": "18.2.6",
     "ngx-http-request-state": "^3.0.0",
     "rxjs": "~7.8.0",
-    "uuid": "^9.0.1"
+    "uuid": "^10.0.0"
   },
   "type": "commonjs",
   "main": "./index.cjs"

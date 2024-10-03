@@ -1,13 +1,13 @@
-import {createActionGroup, createFeature, createReducer, on, props,} from '@ngrx/store';
-import {ActionPayload, HttpRequestsStateIdle,} from '@demo/utils/utils-data-service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {CreateOneTodoContract, TodoDataService,} from '@demo/contracts/contract-todo';
-import {errorState, HttpRequestState, loadedState, loadingState,} from 'ngx-http-request-state';
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map} from 'rxjs';
-import {fetch} from '@ngrx/router-store/data-persistence';
-import {todoCommonActions} from '@demo/features/feature-todo-common';
+import { createActionGroup, createFeature, createReducer, on, props } from '@ngrx/store';
+import { ActionPayload, HttpRequestsStateIdle } from '@demo/utils/utils-data-service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CreateOneTodoContract, TodoDataServicePort } from '@demo/contracts/contract-todo';
+import { errorState, HttpRequestState, loadedState, loadingState } from 'ngx-http-request-state';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map } from 'rxjs';
+import { fetch } from '@ngrx/router-store/data-persistence';
+import { todoCommonActions } from '@demo/features/feature-todo-common';
 
 export const todoCreateActions = createActionGroup({
   source: 'todo form',
@@ -75,6 +75,6 @@ export class TodoCreateEffects {
 
   constructor(
     private actions$: Actions,
-    private todoDataService: TodoDataService
+    private todoDataService: TodoDataServicePort
   ) {}
 }

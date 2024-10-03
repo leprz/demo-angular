@@ -1,26 +1,54 @@
 import { Injectable } from '@angular/core';
 import {
-  CreateOneTodoContract,
-  DeleteOneTodoContract,
-  ReadManyTodosContract,
-  ReadOneTodoContract,
-  UpdateOneTodoContract,
-  UpdateOneTodoResolutionContract,
+  CreateOneTodoBodyParams,
+  CreateOneTodoContract, CreateOneTodoResult,
+  DeleteOneTodoContract, DeleteOneTodoPathParams, DeleteOneTodoResult,
+  ReadManyTodosContract, ReadManyTodosResult,
+  ReadOneTodoContract, ReadOneTodoPathParams, ReadOneTodoResult, UpdateOneTodoBodyParams,
+  UpdateOneTodoContract, UpdateOneTodoPathParams, UpdateOneTodoResolutionBodyParams,
+  UpdateOneTodoResolutionContract, UpdateOneTodoResolutionPathParams, UpdateOneTodoResult
 } from './contracts-todo';
 import { HttpClientFake } from './http-client.fake';
 import { Observable } from 'rxjs';
 import { urlFactory } from '@valueadd/typed-urls';
 
+export abstract class TodoDataServicePort {
+  abstract readMany(): Observable<ReadManyTodosResult>;
+
+  abstract deleteOne(
+    pathParams: DeleteOneTodoPathParams
+  ): Observable<DeleteOneTodoResult>;
+
+  abstract readOneById(
+    pathParams: ReadOneTodoPathParams
+  ): Observable<ReadOneTodoResult>;
+
+  abstract updateOneResolution(
+    pathParams: UpdateOneTodoResolutionPathParams,
+    bodyParams: UpdateOneTodoResolutionBodyParams
+  ): Observable<UpdateOneTodoResult>;
+
+  abstract createOne(
+    bodyParams: CreateOneTodoBodyParams
+  ): Observable<CreateOneTodoResult>;
+
+  abstract updateOne(
+    pathParams: UpdateOneTodoPathParams,
+    bodyParams: UpdateOneTodoBodyParams
+  ): Observable<UpdateOneTodoResult>;
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class TodoDataService {
+export class TodoDataServiceFake implements TodoDataServicePort{
   constructor(private readonly httpClient: HttpClientFake) {}
 
-  readManyTodos(): Observable<typeof ReadManyTodosContract.result> {
+  readMany(): Observable<typeof ReadManyTodosContract.result> {
     return this.httpClient.get<typeof ReadManyTodosContract.result>('/todos');
   }
-  deleteOneTodo(
+
+  deleteOne(
     pathParams: typeof DeleteOneTodoContract.pathParams
   ): Observable<typeof DeleteOneTodoContract.result> {
     return this.httpClient.delete<void>(
@@ -42,7 +70,7 @@ export class TodoDataService {
     );
   }
 
-  updateResolution(
+  updateOneResolution(
     pathParams: typeof UpdateOneTodoResolutionContract.pathParams,
     bodyParams: typeof UpdateOneTodoResolutionContract.bodyParams
   ): Observable<typeof UpdateOneTodoResolutionContract.result> {

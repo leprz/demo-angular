@@ -1,17 +1,17 @@
-import {createActionGroup, createFeatureSelector, createReducer, createSelector, on, props} from "@ngrx/store";
-import {TodoDataService} from "@demo/contracts/contract-todo";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ActionPayload} from "@demo/utils/utils-data-service";
-import {errorState, loadedState, loadingState} from "ngx-http-request-state";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {fetch} from "@ngrx/router-store/data-persistence";
-import {map} from "rxjs";
-import {Injectable} from "@angular/core";
+import { createActionGroup, createFeatureSelector, createReducer, createSelector, on, props } from '@ngrx/store';
+import { TodoDataServicePort } from '@demo/contracts/contract-todo';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActionPayload } from '@demo/utils/utils-data-service';
+import { errorState, loadedState, loadingState } from 'ngx-http-request-state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { fetch } from '@ngrx/router-store/data-persistence';
+import { map } from 'rxjs';
+import { Injectable } from '@angular/core';
 import {
-  todoCommonActions,
   FeatureTodoDeletePayload,
-  FeatureTodoDeleteResult
-} from "@demo/features/feature-todo-common";
+  FeatureTodoDeleteResult,
+  todoCommonActions
+} from '@demo/features/feature-todo-common';
 
 export const todoDeleteActions = createActionGroup({
   source: 'todo delete',
@@ -83,7 +83,7 @@ export class TodoDeleteEffects {
     ofType(todoDeleteActions.triggered),
     fetch({
       run: (action) => {
-        return this.todoDataService.deleteOneTodo(action.payload).pipe(
+        return this.todoDataService.deleteOne(action.payload).pipe(
           map(() => todoCommonActions.todoDeletedWithSuccess({payload: action.payload})
           ))
       },
@@ -100,7 +100,7 @@ export class TodoDeleteEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly todoDataService: TodoDataService
+    private readonly todoDataService: TodoDataServicePort
   ) {
   }
 }

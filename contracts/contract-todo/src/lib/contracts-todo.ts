@@ -56,6 +56,10 @@ export const DeleteOneTodoContract =
     .PathParameters<Pick<TodoResponseItem, 'id'>>()
     .Returns<void>();
 
+export type DeleteOneTodoPathParams = typeof DeleteOneTodoContract.pathParams;
+export type DeleteOneTodoResult = typeof DeleteOneTodoContract.result;
+
+
 export const UpdateOneTodoResolutionContract =
   API
     .Patch

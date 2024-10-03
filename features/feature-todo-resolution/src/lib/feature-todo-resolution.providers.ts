@@ -7,10 +7,15 @@ import {
   TodoResolutionEffects,
   todoResolutionReducer
 } from './+store/todo-resolution.store';
-import { FeatureTodoResolutionPolicyPort, FeatureTodoResolutionPort } from '@demo/features/feature-todo-common';
+import {
+  featureTodoDataServiceProviders,
+  FeatureTodoResolutionPolicyPort,
+  FeatureTodoResolutionPort
+} from '@demo/features/feature-todo-common';
 import { FeatureTodoResolutionPolicy } from './feature-todo-resolution.policy';
 
 export const featureTodoResolutionProviders: Array<Provider | EnvironmentProviders> = [
+  featureTodoDataServiceProviders,
   {
     provide: FeatureTodoResolutionPolicyPort,
     useClass: FeatureTodoResolutionPolicy,
